@@ -1,0 +1,7 @@
+<h2>Upload a Picture for Profile</h2>
+<input type="file" accept="image/*" (change)="onDrop($event)" placeholder="Upload image...">
+
+
+<div *ngFor="let file of files">
+    <upload-profile-pic [file]="file"></upload-profile-pic>
+</div>

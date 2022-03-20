@@ -1,0 +1,244 @@
+:host {
+
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+
+
+    ion-header {
+        position: fixed;
+        transform: translate3d(0, 0, 0);
+    }
+
+    video {
+        min-width: 100%;
+        height: auto;
+        max-height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    .logo {
+        max-width: 400px;
+        width: 100%;
+        max-height: 100%;
+        cursor: pointer;
+        text-align: center;
+        margin-right: 75px;
+    }
+
+    .landing-splash {
+        width: 100%
+    }
+
+    /**
+    * This is a fix for Android, as the poster seems to be zoomed if we don't set object-fit to "none"
+    */
+    :host-context(.plt-android) video[poster] {
+        object-fit: none;
+    }
+
+    .menu-label {
+        font-size: 24px;
+    }
+
+    // #join {
+    //     background-image: url(/assets/img/gym_sticker.jpg);
+    // }
+
+    #coaches {
+        position: relative;
+        background-size: cover;
+        color: black;
+		margin-top:55px;
+    }
+
+
+    #coaches img {
+        max-height: 600px;
+        filter: opacity(1);
+        margin: 0 auto;
+    }
+
+    #coaches::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // background-image: url(/assets/img/gym_sticker.jpg);
+        filter: opacity(25%);
+    }
+
+	.calendar .day{
+		position: absolute;
+		z-index: -9999;
+		top: 30px;
+		left: 21px;
+	}
+	.calendar:hover{
+		
+	}
+
+    #services h2 {
+        text-align: left;
+        text-decoration: underline;
+    }
+
+    #events {
+        background-image: url('/assets/img/cool-background.png');
+        background-size: cover;
+    }
+
+    #events ion-col {
+        text-align: center;
+    }
+
+	#events ion-input{
+		background-color: white;
+	}
+
+    h1 {
+        font-size: 40px;
+        font-family: 'Teko', sans-serif;
+        text-transform: uppercase;
+        padding-top: 75px;
+        padding-bottom: 25px;
+        text-align: center;
+    }
+
+	h1.header {
+		margin:0px;
+		padding: 0px;
+	}
+
+    h2 {
+        font-size: 30px;
+        font-family: 'Teko', sans-serif;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    section {
+        padding-bottom: 25px;
+    }
+
+	ion-card-content p {
+		color:white;
+	}
+
+    #about-us {
+        filter: opacity(1);
+    }
+
+    #about-us p {
+        // background: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+        margin: 0;
+        padding-bottom: 12px;
+    }
+
+
+
+    img-comparison-slider {
+        max-height: 750px;
+        width: 100%;
+    }
+
+    .footer {
+        width: 100%;
+        text-align: center;
+		a {
+			color: white;
+		}
+    }
+
+	.date {
+		display: block;
+		width: 100px;
+		background: #fff;
+		text-align: center;
+		font-family: 'Helvetica', sans-serif;
+		position: absolute;
+	}
+	
+	.date .binds {
+		position: absolute;
+		height: 15px;
+		width: 60px;
+		background: transparent;
+		border: 2px solid rgb(243, 227, 4);
+		border-width: 0 5px;
+		top: -6px;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	
+	.date .month {
+		background: #ff1493;
+		display: block;
+		padding: 8px 0;
+		color: #fff;
+		font-size: 12px;
+		font-weight: bold;
+		border-bottom: 2px solid #ff1493;
+		box-shadow: inset 0 -1px 0 0 #ff1493;
+	}
+	
+	.date .day {
+		display: block;
+		margin: 0;
+		padding: 10px 0;
+		font-size: 48px;
+		box-shadow: 0 0 3px #ccc;
+		position: relative;
+	}
+	
+	// .date .day::after {
+	// 	content: '';
+	// 	display: block;
+	// 	height: 100%;
+	// 	width: 96%;
+	// 	position: absolute;
+	// 	top: 3px;
+	// 	left: 2%;
+	// 	z-index: -1;
+	// 	box-shadow: 0 0 3px #ccc;
+	// }
+	
+	// .date .day::before {
+	// 	content: '';
+	// 	display: block;
+	// 	height: 100%;
+	// 	width: 90%;
+	// 	position: absolute;
+	// 	top: 6px;
+	// 	left: 5%;
+	// 	z-index: -1;
+	// 	box-shadow: 0 0 3px #ccc;
+	// }
+	h3 {
+		text-align: center;
+	}
+
+	.logout-btn{
+		cursor: pointer;
+		text-align: center;
+		display: block;
+		width: 100%;
+	}
+
+	.blurry {
+		filter: blur(6px);
+	}
+
+	.event-thumb {
+		min-height:200px;
+	}
+}
+
+
+p.description {
+	margin: 0px 20px;
+}

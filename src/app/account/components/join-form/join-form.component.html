@@ -1,0 +1,27 @@
+<ion-grid>
+    <form [formGroup]=form (ngSubmit)=onSubmit(form.value) autocomplete="on">
+        <ion-row>
+            <mat-form-field>
+                <mat-label for='name'>Name</mat-label>
+                <input matInput type="text" [formControl]="name" name="name"
+                       autocomplete="on"
+                       enterKeyHint="next"
+                       required>
+                <mat-error *ngIf="name.hasError('required')">Your first name is required.</mat-error>
+            </mat-form-field>
+        </ion-row>
+
+		<ion-row>
+            <mat-form-field>
+                <mat-label for='name'>Email</mat-label>
+                <input matInput type="email" [formControl]="email" name="email"
+                       autocomplete="email"
+                       clearInput="true" required
+                       color="primary" enterKeyHint="done">
+                <mat-error *ngIf="email.hasError('required') || email.hasError('email')">Please enter a valid email</mat-error>
+            </mat-form-field>
+        </ion-row>
+
+		<ion-button type="submit" size="large" class="submit-btn">JOIN US TODAY!</ion-button>
+    </form>
+</ion-grid>

@@ -1,0 +1,16 @@
+ion-menu ion-content {
+    --background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+
+ion-item.selected ion-icon {
+    color: var(--ion-color-primary);
+}
+
+ion-item.selected {
+    --color: var(--ion-color-primary);
+}
+
+
+ion-item {
+    cursor: pointer;
+}

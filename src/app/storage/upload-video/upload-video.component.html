@@ -1,0 +1,7 @@
+<h2>Upload a Video for Review</h2>
+<input type="file" accept="video/*" (change)="onDrop($event)" placeholder="Upload video...">
+
+
+<div *ngFor="let file of files">
+    <upload-review [file]="file"></upload-review>
+</div>
