@@ -48,7 +48,7 @@
     <section id="events" #events>
         <h1>Events</h1>
         <ion-col [hidden]="(isAuthenticated$ | async) === true">
-            <h3>Sign up to check out our upcoming events!</h3>
+            <h3>Sign up to stay in the loop with our upcoming events!</h3>
             <join-form (formSubmit)="onSubmit($event)"></join-form>
         </ion-col>
 
@@ -59,8 +59,7 @@
 
         <!--- If you can unblur this section, then CONGRATULATIONS you know basic css 😂 have a cookie 🍪  -->
         <ion-row>
-            <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12"
-                     [ngClass]="{blurry: (isAuthenticated$ | async) === false }" *ngFor="let e of atmaEvents; let i = index;">
+            <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12" *ngFor="let e of atmaEvents; let i = index;">
                 <ion-card-header>
                     <ion-card-title>{{e.title}}</ion-card-title>
                     <ion-card-subtitle>{{e.subtitle}}</ion-card-subtitle>
@@ -74,7 +73,7 @@
                     </div>
                     <ion-img [src]="'assets/img/events/' + (i+1) + '.jpg'" class="event-thumb"></ion-img>
                     <p>{{e.preview}}</p>
-                    <ion-button [id]="'event-' + i + '-button'" [disabled]="(isAuthenticated$ | async) === false">Read More</ion-button>
+                    <ion-button [id]="'event-' + i + '-button'">Read More</ion-button>
                     <ion-modal [trigger]="'event-' + i + '-button'" [swipeToClose]="true">
                         <ng-template>
                             <ion-content>
@@ -88,7 +87,7 @@
             </ion-col>
         </ion-row>
 		<ion-col [hidden]="(isAuthenticated$ | async) === true">
-            <h3>Sign up to check out our upcoming events!</h3>
+            <h3>Sign up to stay in the loop with our upcoming events!</h3>
             <join-form (formSubmit)="onSubmit($event)"></join-form>
         </ion-col>
         <ion-row>

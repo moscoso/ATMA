@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthFacade } from 'src/app/core/state/auth/auth.facade';
 import { Profile } from 'src/app/core/state/profile/profile.model';
@@ -13,6 +13,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class JoinFormComponent implements OnInit {
 
+	@ViewChild('wtf') nameElement: ElementRef;
     @Output() formSubmit = new EventEmitter < Partial < Profile >> ();
 
     hidePassword = true;
@@ -46,6 +47,12 @@ export class JoinFormComponent implements OnInit {
                 'email': profile.email,
                 'name': profile.name,
             };
+			if(profile.name === ''){
+				throw new Error (`Please fill out your name`)
+			}
+			if(profile.email === '') {
+				throw new Error(`Please fill out your email`)
+			}
 			window.localStorage.setItem('email', profile.email);
 			window.localStorage.setItem('name', profile.name);
             this.formSubmit.emit(values);
@@ -53,11 +60,17 @@ export class JoinFormComponent implements OnInit {
             this.toastService.failed(`Something went wrong`, error);
         }
 		try {
-			this.fire.collection(`sign-ups`).add({
+			await this.fire.collection(`sign-ups`).add({
 				'name': window.localStorage.getItem('name'),
 				'email': window.localStorage.getItem('email'),
 				'timestamp': new Date(),
 			});
+			this.toastService.success(`Sign up completed. Thanks ${profile.name}! ❤️ `);
+			this.form.reset();
+			Object.keys(this.form.controls).forEach(key => {
+				this.form.get(key).setErrors(null);
+			});
+			this.nameElement.nativeElement.focus();
 		} catch (e) {
 			console.error(e);
 		}

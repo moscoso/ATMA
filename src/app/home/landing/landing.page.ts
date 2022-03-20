@@ -101,13 +101,6 @@ export class LandingPage implements OnInit {
     async onSubmit(data) {
         const profile = Object.assign({}, data);
         console.log(profile.email);
-        try {
-            await this.fireAuth.sendSignInLinkToEmail(profile.email, profile.name);
-            this.toastService.primary(`Check your email for the link to sign in`);
-        } catch (error) {
-            console.log(error);
-            this.toastService.failed(`Something went wrong`, error)
-        }
 
     }
 

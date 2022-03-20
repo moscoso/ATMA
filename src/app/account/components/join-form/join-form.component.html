@@ -1,13 +1,13 @@
 <ion-grid>
-    <form [formGroup]=form (ngSubmit)=onSubmit(form.value) autocomplete="on">
+    <form [formGroup]=form (ngSubmit)=onSubmit(form.value) autocomplete="off">
         <ion-row>
             <mat-form-field>
                 <mat-label for='name'>Name</mat-label>
-                <input matInput type="text" [formControl]="name" name="name"
+                <input matInput type="text" [formControl]="name" name="name" #wtf
                        autocomplete="on"
                        enterKeyHint="next"
                        required>
-                <mat-error *ngIf="name.hasError('required')">Your first name is required.</mat-error>
+                <mat-error *ngIf="name.hasError('required')">Your name is required.</mat-error>
             </mat-form-field>
         </ion-row>
 
@@ -15,7 +15,7 @@
             <mat-form-field>
                 <mat-label for='name'>Email</mat-label>
                 <input matInput type="email" [formControl]="email" name="email"
-                       autocomplete="email"
+                       autocomplete="off"
                        clearInput="true" required
                        color="primary" enterKeyHint="done">
                 <mat-error *ngIf="email.hasError('required') || email.hasError('email')">Please enter a valid email</mat-error>
