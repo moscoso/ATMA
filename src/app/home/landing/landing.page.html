@@ -1,45 +1,21 @@
 <ion-content>
     <ion-header #header>
         <ion-toolbar class="ion-text-center">
-            <!-- <ion-buttons slot="start">
-                <ion-menu-button class="ion-hide-md-up" auto-hide="false"></ion-menu-button>
-                <ion-button class="ion-hide-md-down" (click)="scrollPage('events')">Events</ion-button>
-            </ion-buttons> -->
             <h1 class="header">Ātma Church</h1>
-            <!-- <ion-buttons slot="end" *ngIf="(isAuthenticated$ | async) === true">
-                <ion-button class="ion-hide-md-down" [routerLink]="'/dashboard'">Dashboard</ion-button>
-            </ion-buttons>
-            <ion-buttons slot="end" *ngIf="(isAuthenticated$ | async) === false" class="ion-hide-md-down">
-                <ion-button [routerLink]="'/register'">Join</ion-button>
-                <ion-button [routerLink]="'/login'">Login</ion-button>
-            </ion-buttons> -->
         </ion-toolbar>
     </ion-header>
 
-
-    <!-- <video #video class="ion-hide-md-down"
-           [ngStyle]="{'margin-top': headerHeight+'px', 'max-height': calcVideoHeight() }"
-           loop playsinline="true" preload="auto" muted="true" disablePictureInPicture controlslist="nodownload nofullscreen">
-        <source [src]="getStorageURL('StrengthRx_Protocols_Landing_Muted.webm?alt=media&token=746c5ebb-9657-4cec-9290-d3bd42492941')" />
-        <source [src]="getStorageURL('StrengthRx_Protocols_Landing_Muted.mp4?alt=media&token=34eeb74a-32b6-43e0-b8ad-dddbd74da901')" />
-
-
-    </video> -->
-
-    <!-- <img class="ion-hide-md-up landing-splash" [ngStyle]="{'margin-top': headerHeight+'px', 'max-height': calcVideoHeight() }"
-         src="/assets/img/splash.PNG" /> -->
-
-    <ion-grid id="coaches" #coaches>
+    <ion-grid id="leaders">
         <ion-row class="ion-text-center">
             <ion-col sizeMd="4" sizeSm="12" sizeXs="12">
-                <img src="/assets/icon/logo.jpg">
+                <img class="logo" src="/assets/icon/logo.jpg">
             </ion-col>
             <ion-col sizeMd="4" sizeSm="12" sizeXs="12">
-                <img src="/assets/img/whitney.png">
+                <img src="/assets/img/whitney2.png">
                 <h2>Whitney</h2>
             </ion-col>
             <ion-col sizeMd="4" sizeSm="12" sizeXs="12">
-                <img src="/assets/img/tati.png">
+                <img src="/assets/img/tati2.png">
                 <h2>Tatiana</h2>
             </ion-col>
         </ion-row>
@@ -57,7 +33,6 @@
 			<a class="logout-btn" (click)="logout()">Click here to log out</a>
         </ion-col>
 
-        <!--- If you can unblur this section, then CONGRATULATIONS you know basic css 😂 have a cookie 🍪  -->
         <ion-row>
             <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12" *ngFor="let e of atmaEvents; let i = index;">
                 <ion-card-header>
