@@ -1,0 +1,20 @@
+<ion-header #header>
+    <ion-toolbar class="ion-text-center">
+        <h1 class="header">Ātma Church</h1>
+    </ion-toolbar>
+</ion-header>
+
+<ng-container *ngFor="let song of playlist; let i = index;">
+	<section class="playlist">
+		<h3>{{song.name}}</h3>
+    	<audio controls> <source [src]="song.link" /></audio>
+	</section>
+    
+</ng-container>
+
+
+<ion-footer>
+    <p class="footer">© ĀTM 2022 | All Right Reserved | Developed & Powered by Chris Moscoso
+        <!-- <a href="http://chrismoscoso.com"> Chris Moscoso</a> -->
+    </p>
+</ion-footer>

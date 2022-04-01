@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth/auth.guard';
-import { ProfileGuard } from './guards/profile/profile.guard';
 import { NoAuthGuard } from './guards/no-auth/no-auth.guard';
-import { ClientGuard } from './guards/client/client.guard';
 
 
 
@@ -13,6 +10,11 @@ const routes: Routes = [
         'loadChildren': () => import('./home/landing/landing.module').then(m => m.LandingPageModule),
         'pathMatch': 'full'
     },
+	{
+		'path': 'tati',
+		'loadChildren': () => import('./home/tati/tati.module').then(m => m.TatiPageModule),
+		'pathMatch': 'full',
+	},
     {
         'path': 'dashboard',
         'redirectTo': 'profile',

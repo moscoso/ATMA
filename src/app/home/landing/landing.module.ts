@@ -20,8 +20,5 @@ import { AccountModule } from 'src/app/account/account.module';
         LandingPageRoutingModule
     ],
     'declarations': [LandingPage],
-    'schemas': [
-        CUSTOM_ELEMENTS_SCHEMA,
-    ]
 })
 export class LandingPageModule {}
