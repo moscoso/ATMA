@@ -4,7 +4,7 @@ import { FireAuthService } from 'src/app/core/firebase/auth/auth.service';
 import { AuthFacade } from 'src/app/core/state/auth/auth.facade';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -25,6 +25,7 @@ export class LandingPage implements OnInit {
         public fireAuth: FireAuthService,
         public toastService: ToastService,
         public route: ActivatedRoute,
+		public router: Router,
 		public fire: AngularFirestore
     ) {}
 
@@ -107,6 +108,10 @@ export class LandingPage implements OnInit {
     async logout() {
         this.authService.logout();
     }
+
+	goToTati() {
+		this.router.navigateByUrl('/tati')
+	}
 
 	atmaEvents = [{
 		title: `Wim Hof Method Adventure & April Fools' SlumberParty`,
