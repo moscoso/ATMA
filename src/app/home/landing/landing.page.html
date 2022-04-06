@@ -34,8 +34,8 @@
         </ion-col>
 
         <ion-row>
-            <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12" *ngFor="let e of atmaEvents; let i = index;">
-                <ion-card-header>
+            <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12"  *ngFor="let e of atmaEvents; let i = index;">
+                <ion-card-header >
                     <ion-card-title>{{e.title}}</ion-card-title>
                     <ion-card-subtitle>{{e.subtitle}}</ion-card-subtitle>
                 </ion-card-header>
@@ -46,7 +46,7 @@
                         <span class="month">{{e.month}}</span>
                         <h1 class="day">{{e.day}}</h1>
                     </div>
-                    <ion-img [src]="'assets/img/events/' + (i+1) + '.jpg'" class="event-thumb"></ion-img>
+                    <ion-img id="event-image-i" [src]="e.image" class="event-thumb not-loaded" (ionImgDidLoad)="woah($event)"></ion-img>
                     <p>{{e.preview}}</p>
                     <ion-button [id]="'event-' + i + '-button'">Read More</ion-button>
                     <ion-modal [trigger]="'event-' + i + '-button'" [swipeToClose]="true">

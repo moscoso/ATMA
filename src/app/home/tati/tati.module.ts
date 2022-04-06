@@ -5,7 +5,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeModule } from '../home.module';
 import { TatiPageRoutingModule } from './tati-routing.module.ts.module';
 import { TatiPage } from './tati.page';
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
 
 @NgModule({
     'imports': [
@@ -14,7 +13,6 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
 		HomeModule,
 		SharedModule,
 		TatiPageRoutingModule,
-		NgxAudioPlayerModule,
     ],
 	'declarations': [TatiPage],
 })
