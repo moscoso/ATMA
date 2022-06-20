@@ -8,7 +8,7 @@ import { MenuListComponent } from './menu-list/menu-list.component';
 import { RouterModule } from '@angular/router';
 import { ImageComparisonModule } from './image-comparison/image-comparison.module';
 import { EntityListRefresherComponent } from './entity-list-refresher/entity-list-refresher.component';
-
+import { TiltDirective } from './tilt/tilt.directive';
 
 @NgModule({
     'imports': [
@@ -22,14 +22,15 @@ import { EntityListRefresherComponent } from './entity-list-refresher/entity-lis
         DismissModalButtonComponent,
         EntityListRefresherComponent,
         MenuListComponent,
+		TiltDirective,
         YoutubePlayerComponent,
-
     ],
     'exports': [
         DismissModalButtonComponent,
         EntityListRefresherComponent,
         ImageComparisonModule,
         MenuListComponent,
+		TiltDirective,
         YouTubePlayerModule,
         YoutubePlayerComponent,
     ]
