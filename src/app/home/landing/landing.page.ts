@@ -121,127 +121,128 @@ export class LandingPage implements OnInit {
 		this.router.navigateByUrl('/tati')
 	}
 
-	atmaEvents = [{
-		title: `Wim Hof Method Adventure & April Fools' SlumberParty`,
-		subtitle: `APR 1 AT 7 PM – APR 2 AT 3:33 PM`,
-		month: `April`,
-		day: '1',
-		image: `https://firebasestorage.googleapis.com/v0/b/atma-church.appspot.com/o/wim%20hof.jpg?alt=media&token=f5d1e3d9-06a0-4649-9de5-813c754e31d5`,
-		preview: `Come Celebrate April Fools' with Ātma Church (All Tribes Medicine Assembly) We will gather by Candlelight under the
-		New Moon of April 1st to plant seeds of hope & intention from
-		the Pure Heart of the Sacred Fool Archetype who firmly stands for Infinite Possibility, Innocence & Freedom`,
-		description: `We will gather by Candlelight under the New Moon of April 1st to plant seeds of hope & intention from
-		the Pure Heart of the Sacred Fool Archetype who firmly stands for Infinite Possibility, Innocence &
-		Freedom
-		Festivities with kickstart with Wim Hof Method Breathwork & Icebath Party 7-9 pm facilitated by
-		Certified Wim Hof Method
-		Instructor Tatiana who has has assisted Wim Hof's Winter Expeditions Climbing Snow Mountains together in
-		nothing but
-		their swimsuit! Together we will transform our relationship with confronting challenge & cultivate the
-		exuberant
-		life-giving energy of empowerment.
-		Stick around for Epic AfterParty with Ecstatic Dance, Midnight Skinny-Dip Swim + Sauna & Cuddle Puddle
-		Slumber Party
-		with Calea Zacatechichi & Blue Lotus Medicine for Lucid Dreaming - See you in the DreamTime!
-		In the Morning we will prime ourselves with barefoot grounding under majestic live oaks to flow through
-		a sequence of
-		Vinyasa Krama Himalayan Yoga (prānic Sādhanā) followed by another round of Breathwork & Icebath to start
-		the day 'High
-		on your Own Supply'!
-		To Share & Express the radiant energy we will be cultivating, We will cap the event with an
-		EcstaticDance PartyParade
-		down Congress with the ABC costume theme "Anything But Clothes"
-		Bring with you Snacks to share, Swim Towel & Blankets/Pillows to get Comfy-Coz & your weirdest creative
-		costume for
-		"Anything But Clothes" 😉
-		Located at Luxurious Private Sanctuary Estate in Westlake Hills with Five Acres of Live Oaks, Saltwater
-		Pool & Sauna
-		overlooking stunning view of Austin CityScape... Exact Address will be given after registration
-		$111 to attend the full April Fools' Ritual
-		or $50 per either morning or evening Wim Hof Method Workshop (7-9 pm Friday or 8-11 Saturday)
-		@AtmaChurch (Venmo)
-		for more information, call Whitney @ 561-401-1154`
-	}, 
-	{
-		title: `ECSTATIC REVOLUTION: SILENT DISCO Parade ATX`,
-		subtitle: `SATURDAY, APRIL 2, 2022 AT 2 PM – 4 PM EDT`,
-		month: `April`,
-		day: '2',
-		image: `https://firebasestorage.googleapis.com/v0/b/atma-church.appspot.com/o/dance%20party.jpg?alt=media&token=74e2d960-c3d0-4d7a-b250-4b4edc2cd395`,
-		preview: `Come Unleash your wild side Saturday April 2 ***This is a donation-based event (sliding scale suggested donation $22-$33)***
-		We will gather at 1 pm. We will then connect, go over the plan, pass out the Silent Disco headsets, and start our party Parade about!`,
-		description:`Join us for this PARTY IN MOTION!
+	atmaEvents = [
+	// 	{
+	// 	title: `Wim Hof Method Adventure & April Fools' SlumberParty`,
+	// 	subtitle: `APR 1 AT 7 PM – APR 2 AT 3:33 PM`,
+	// 	month: `April`,
+	// 	day: '1',
+	// 	image: `https://firebasestorage.googleapis.com/v0/b/atma-church.appspot.com/o/wim%20hof.jpg?alt=media&token=f5d1e3d9-06a0-4649-9de5-813c754e31d5`,
+	// 	preview: `Come Celebrate April Fools' with Ātma Church (All Tribes Medicine Assembly) We will gather by Candlelight under the
+	// 	New Moon of April 1st to plant seeds of hope & intention from
+	// 	the Pure Heart of the Sacred Fool Archetype who firmly stands for Infinite Possibility, Innocence & Freedom`,
+	// 	description: `We will gather by Candlelight under the New Moon of April 1st to plant seeds of hope & intention from
+	// 	the Pure Heart of the Sacred Fool Archetype who firmly stands for Infinite Possibility, Innocence &
+	// 	Freedom
+	// 	Festivities with kickstart with Wim Hof Method Breathwork & Icebath Party 7-9 pm facilitated by
+	// 	Certified Wim Hof Method
+	// 	Instructor Tatiana who has has assisted Wim Hof's Winter Expeditions Climbing Snow Mountains together in
+	// 	nothing but
+	// 	their swimsuit! Together we will transform our relationship with confronting challenge & cultivate the
+	// 	exuberant
+	// 	life-giving energy of empowerment.
+	// 	Stick around for Epic AfterParty with Ecstatic Dance, Midnight Skinny-Dip Swim + Sauna & Cuddle Puddle
+	// 	Slumber Party
+	// 	with Calea Zacatechichi & Blue Lotus Medicine for Lucid Dreaming - See you in the DreamTime!
+	// 	In the Morning we will prime ourselves with barefoot grounding under majestic live oaks to flow through
+	// 	a sequence of
+	// 	Vinyasa Krama Himalayan Yoga (prānic Sādhanā) followed by another round of Breathwork & Icebath to start
+	// 	the day 'High
+	// 	on your Own Supply'!
+	// 	To Share & Express the radiant energy we will be cultivating, We will cap the event with an
+	// 	EcstaticDance PartyParade
+	// 	down Congress with the ABC costume theme "Anything But Clothes"
+	// 	Bring with you Snacks to share, Swim Towel & Blankets/Pillows to get Comfy-Coz & your weirdest creative
+	// 	costume for
+	// 	"Anything But Clothes" 😉
+	// 	Located at Luxurious Private Sanctuary Estate in Westlake Hills with Five Acres of Live Oaks, Saltwater
+	// 	Pool & Sauna
+	// 	overlooking stunning view of Austin CityScape... Exact Address will be given after registration
+	// 	$111 to attend the full April Fools' Ritual
+	// 	or $50 per either morning or evening Wim Hof Method Workshop (7-9 pm Friday or 8-11 Saturday)
+	// 	@AtmaChurch (Venmo)
+	// 	for more information, call Whitney @ 561-401-1154`
+	// }, 
+	// {
+	// 	title: `ECSTATIC REVOLUTION: SILENT DISCO Parade ATX`,
+	// 	subtitle: `SATURDAY, APRIL 2, 2022 AT 2 PM – 4 PM EDT`,
+	// 	month: `April`,
+	// 	day: '2',
+	// 	image: `https://firebasestorage.googleapis.com/v0/b/atma-church.appspot.com/o/dance%20party.jpg?alt=media&token=74e2d960-c3d0-4d7a-b250-4b4edc2cd395`,
+	// 	preview: `Come Unleash your wild side Saturday April 2 ***This is a donation-based event (sliding scale suggested donation $22-$33)***
+	// 	We will gather at 1 pm. We will then connect, go over the plan, pass out the Silent Disco headsets, and start our party Parade about!`,
+	// 	description:`Join us for this PARTY IN MOTION!
 
-		Come Unleash your wild side Saturday April 2 ***This is a donation-based event (sliding scale suggested donation $22-$33)***
-		We will gather at 1 pm. We will then connect, go over the plan, pass out the Silent Disco headsets, and start our party Parade about!
+	// 	Come Unleash your wild side Saturday April 2 ***This is a donation-based event (sliding scale suggested donation $22-$33)***
+	// 	We will gather at 1 pm. We will then connect, go over the plan, pass out the Silent Disco headsets, and start our party Parade about!
 		
-		We will be parading (dancing, skipping, jumping, parkouring, monkeying, undulating, flying!) through the streets for 1.25 miles all the way down to the corner of Riverside (being as weird, wild, and crazy as we can) making dance stops along the way.
+	// 	We will be parading (dancing, skipping, jumping, parkouring, monkeying, undulating, flying!) through the streets for 1.25 miles all the way down to the corner of Riverside (being as weird, wild, and crazy as we can) making dance stops along the way.
 		
 		
-		This is the Ultimate DanceParty LoveFest (à la mini BurningMan)
-		We seek to spread an infectious Euphoria through the streets,
-		exploding like confetti from our unabashed Full Self-Expression, Inspiration & Freedom.
-		Our objective is to Amplify & Exalt Fun.
-		Move Energy for Healing
-		Spread Smiles that Light up the World
-		Co-Create the most happy beautiful experience together
-		Remember the Joy of Living!
-		To make this event even more wonderful & stunning, please come dressed up as your avatar in full costume!
-		**THEME:
-		"KEEP AUSTIN WEIRD"
-		ABC (Anything But Clothes!)
-		so dress as weird & creative as you possibly can!
+	// 	This is the Ultimate DanceParty LoveFest (à la mini BurningMan)
+	// 	We seek to spread an infectious Euphoria through the streets,
+	// 	exploding like confetti from our unabashed Full Self-Expression, Inspiration & Freedom.
+	// 	Our objective is to Amplify & Exalt Fun.
+	// 	Move Energy for Healing
+	// 	Spread Smiles that Light up the World
+	// 	Co-Create the most happy beautiful experience together
+	// 	Remember the Joy of Living!
+	// 	To make this event even more wonderful & stunning, please come dressed up as your avatar in full costume!
+	// 	**THEME:
+	// 	"KEEP AUSTIN WEIRD"
+	// 	ABC (Anything But Clothes!)
+	// 	so dress as weird & creative as you possibly can!
 		
-		Invite your friends
-		This Saturday Event is the AfterParty of a Wim Hof Method April Fools’ Party the night before on April 1st. Details here:
-		https://fb.me/e/1tykVx1d1
-		Everyone is welcome, but due to limited number of headsets (25), you can preregister in advance to reserve your headsets by sending your donation to Whitney. Her Venmo is @whitusa1234 or PayPal is tampacrossboot@gmail.com
-		Please give her your name, the date of event you are reserving headsets for & the links to a few of your favorite songs that you'd love to hear on the playlist.
-		We are seeking High Vibe Beautiful Uplifting Songs that Light your Soul on Fire & Inspire Dance!
-		“And those who were seen dancing were thought to be insane by those who could not hear the music.”
-		― Friedrich Nietzsche`
-	},
-	{
-		title: `Hammam & Harem: An Enchanted Candlelit Evening of Magick`,
-		subtitle: `FRIDAY, APRIL 15, 2022 AT 8 PM EDT`,
-		month: `April`,
-		day: '15',
-		image: `https://firebasestorage.googleapis.com/v0/b/atma-church.appspot.com/o/harem.jpg?alt=media&token=8bb1b0dc-e358-46c1-8816-69967aaca968`,
-		preview: `Hammam & Harrem: An Enchanting Candlelit Evening of Magick
-		at Secret Estate in WestLake Hills`,
-		description:`Atma warmly invites you to attend:
-		Hammam & Harrem: An Enchanting Candlelit Evening of Magick
-		at Secret Estate in WestLake Hills
-		Evening will Include:
-		Guided Beginner’s Bellydance:
-		Watch or Learn to flow with the fundamental movements of Bellydance undulations to unleash the serpentine surge of Shakti Primal Energy throughout your entire body to enter into a fluid trance of sensuous ecstacy!
-		Hammam Renewal Ritual:
-		RoseWater Couple’s Bath, Sauna, Cold Saltwater Pool Skinny Dip,
-		Traditional Moroccan BlackSoap Cleanse, Exfoliation Scrub with Kessa Glove, Ghassol Clay Mask from Atlas Mountains, Argan Oil Massage
-		(Nudity Optional in Hammam Experience, or bring a bathingsuit if you’d prefer)
-		Gourmet Organic Plant-Based Vegetarian Morroccan Dinner & Hookah Lounge
-		Full Evening of Magick including Moroccan Dinner
-		ATMA member exchange: $222
-		ATMA non member exchange: $333
-		*ATMA memberships begin at $44 per month)
-		-----------------------------
-		We have a 3 day weekend of events
-		Friday April 15
-		Hammam & Harem:
-		An Enchanted Candlelit Evening of Magick
-		Saturday April 16
-		Peyote Walkabout:
-		GreenBelt PrayerWalk under the Light of The Pink Moon
-		Easter Sunday April 17th
-		Calling in Christ Consciousness Changa Ceremony & Psilocybin Easter Egg Hunt: A Celebration of Resurrection
-		-------------------
-		All 3 days can be attended for a discounted rate:
-		ATMA member exchange: $999
-		ATMA non member exchange: $1111
-		-------------------
-		Optional overnight stay (available to members only) 3 nights is an additional: $1111 for Luxury Suite
-		$555 Private Room`
-	},
+	// 	Invite your friends
+	// 	This Saturday Event is the AfterParty of a Wim Hof Method April Fools’ Party the night before on April 1st. Details here:
+	// 	https://fb.me/e/1tykVx1d1
+	// 	Everyone is welcome, but due to limited number of headsets (25), you can preregister in advance to reserve your headsets by sending your donation to Whitney. Her Venmo is @whitusa1234 or PayPal is tampacrossboot@gmail.com
+	// 	Please give her your name, the date of event you are reserving headsets for & the links to a few of your favorite songs that you'd love to hear on the playlist.
+	// 	We are seeking High Vibe Beautiful Uplifting Songs that Light your Soul on Fire & Inspire Dance!
+	// 	“And those who were seen dancing were thought to be insane by those who could not hear the music.”
+	// 	― Friedrich Nietzsche`
+	// },
+	// {
+	// 	title: `Hammam & Harem: An Enchanted Candlelit Evening of Magick`,
+	// 	subtitle: `FRIDAY, APRIL 15, 2022 AT 8 PM EDT`,
+	// 	month: `April`,
+	// 	day: '15',
+	// 	image: `https://firebasestorage.googleapis.com/v0/b/atma-church.appspot.com/o/harem.jpg?alt=media&token=8bb1b0dc-e358-46c1-8816-69967aaca968`,
+	// 	preview: `Hammam & Harrem: An Enchanting Candlelit Evening of Magick
+	// 	at Secret Estate in WestLake Hills`,
+	// 	description:`Atma warmly invites you to attend:
+	// 	Hammam & Harrem: An Enchanting Candlelit Evening of Magick
+	// 	at Secret Estate in WestLake Hills
+	// 	Evening will Include:
+	// 	Guided Beginner’s Bellydance:
+	// 	Watch or Learn to flow with the fundamental movements of Bellydance undulations to unleash the serpentine surge of Shakti Primal Energy throughout your entire body to enter into a fluid trance of sensuous ecstacy!
+	// 	Hammam Renewal Ritual:
+	// 	RoseWater Couple’s Bath, Sauna, Cold Saltwater Pool Skinny Dip,
+	// 	Traditional Moroccan BlackSoap Cleanse, Exfoliation Scrub with Kessa Glove, Ghassol Clay Mask from Atlas Mountains, Argan Oil Massage
+	// 	(Nudity Optional in Hammam Experience, or bring a bathingsuit if you’d prefer)
+	// 	Gourmet Organic Plant-Based Vegetarian Morroccan Dinner & Hookah Lounge
+	// 	Full Evening of Magick including Moroccan Dinner
+	// 	ATMA member exchange: $222
+	// 	ATMA non member exchange: $333
+	// 	*ATMA memberships begin at $44 per month)
+	// 	-----------------------------
+	// 	We have a 3 day weekend of events
+	// 	Friday April 15
+	// 	Hammam & Harem:
+	// 	An Enchanted Candlelit Evening of Magick
+	// 	Saturday April 16
+	// 	Peyote Walkabout:
+	// 	GreenBelt PrayerWalk under the Light of The Pink Moon
+	// 	Easter Sunday April 17th
+	// 	Calling in Christ Consciousness Changa Ceremony & Psilocybin Easter Egg Hunt: A Celebration of Resurrection
+	// 	-------------------
+	// 	All 3 days can be attended for a discounted rate:
+	// 	ATMA member exchange: $999
+	// 	ATMA non member exchange: $1111
+	// 	-------------------
+	// 	Optional overnight stay (available to members only) 3 nights is an additional: $1111 for Luxury Suite
+	// 	$555 Private Room`
+	// },
 	{
 		title: `Peyote Walkabout: Cactus Ceremony Pilgrimage`,
 		subtitle: `SATURDAY, APRIL 16, 2022 AT 8 AM – 8 PM EDT`,
