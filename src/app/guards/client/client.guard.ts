@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { ToastService } from 'src/app/shared/toast/toast.service';
 import { AuthFacade } from 'src/app/core/state/auth/auth.facade';
 import { ClientFacade } from 'src/app/core/state/client/client.facade';
+import { ToastService } from 'src/app/shared/toast/toast.service';
+import { Injectable } from '@angular/core';
+import {
+    ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree
+} from '@angular/router';
 
 /**
  * A route guard that checks if the user is a valid Client before activating the route
@@ -19,8 +21,9 @@ export class ClientGuard implements CanActivate {
         private authService: AuthFacade,
     ) {}
     async canActivate(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Promise < boolean | UrlTree > {
+        _next: ActivatedRouteSnapshot,
+        _state: RouterStateSnapshot
+	): Promise < boolean | UrlTree > {
         this.clientService.loadAll();
         await this.clientService.selectRequestInProgress().pipe(first(requestInProgress => requestInProgress === false)).toPromise();
         await this.authService.selectUserData().pipe(first(userData => userData != null)).toPromise();
