@@ -59,6 +59,7 @@
     "smoothscroll-polyfill": "^0.4.4",
     "stripe": "^8.69.0",
     "tslib": "^2.0.0",
+    "vanilla-tilt": "^1.7.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
