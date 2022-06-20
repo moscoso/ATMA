@@ -155,10 +155,14 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.isAuthenticated$ = this.authService.selectAuthenticated();
         this.url$ = this.routerService.selectURL();
+
+		this.serviceWorkerUpdate.checkForUpdate()
+
         if (this.serviceWorkerUpdate.isEnabled) {
             this.serviceWorkerUpdate.available.subscribe(() => {
                 if (confirm('New version available. Load New Version?')) {
-                    window.location.reload();
+					this.serviceWorkerUpdate.activateUpdate();
+                    // window.location.reload();
                 }
             });
         }
