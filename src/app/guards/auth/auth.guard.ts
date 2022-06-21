@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { FireAuthService } from 'src/app/core/firebase/auth/auth.service';
 /**
- * A route guard that checks if the user is authenticated before activating the route
+ * A route guard that checks if the user is authorized before activating the route
  */
 @Injectable({
     'providedIn': 'root'
@@ -12,14 +12,14 @@ import { FireAuthService } from 'src/app/core/firebase/auth/auth.service';
 export class AuthGuard implements CanActivate {
     constructor(private authService: FireAuthService, private router: Router, private toast: ToastService) {}
     async canActivate(
-        next: ActivatedRouteSnapshot,
+        _next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Promise < boolean | UrlTree > {
-        const user = await this.authService.getUser().pipe(first()).toPromise();
+        const user = await this.authService.getUser$().pipe(first()).toPromise();
         if (user) {
             return true;
         } else {
             this.toast.failed(`Authentication required`, `Please login`);
-            return this.router.parseUrl(`/login`); // ?redirect=${state.url}
+            return this.router.parseUrl(`/login?redirect=${state.url}`); 
         }
     }
 }
