@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Client } from './client.model';
 import { Profile } from '../profile/profile.model';
-import { Program } from '../program/program.model';
 
 export enum ClientActionType {
     AllRequested = '[Clients Page] All Clients Requested',
@@ -42,19 +41,9 @@ export class TrainerAssigned implements Action {
     constructor(public id: string, public trainer: Profile) {}
 }
 
-export class AssignProgramRequested implements Action {
-    readonly type = ClientActionType.AssignProgramRequested;
-    constructor(public id: string, public program: Program) {}
-}
-
 export class ClearProgramRequested implements Action {
     readonly type = ClientActionType.ClearProgramRequested;
     constructor(public id: string) {}
-}
-
-export class ProgramAssigned implements Action {
-    readonly type = ClientActionType.ProgramAssigned;
-    constructor(public id: string, public program: Program) {}
 }
 
 export class ProgramCleared implements Action {
@@ -71,8 +60,6 @@ export type ClientAction =
     AllLoaded |
     AssignTrainerRequested |
     TrainerAssigned |
-    AssignProgramRequested |
-    ProgramAssigned |
     ClearProgramRequested |
     ProgramCleared |
     RequestFailed;

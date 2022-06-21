@@ -8,20 +8,20 @@ import { firstRequestComplete } from 'src/util/operator/Operators';
 })
 export class EntityListRefresherComponent {
 
-    @Input() dispatcher: any;
+    @Input() entityService: any;
 
     ready = true;
 
     doRefresh(event): void {
         this.refresh();
 
-        this.dispatcher.selectRequestInProgress().pipe(firstRequestComplete).toPromise()
+        this.entityService.selectRequestInProgress().pipe(firstRequestComplete).toPromise()
                 .then(() => { event.target.complete(); });
 
     }
 
     refresh(): void {
-        this.dispatcher.refreshAll();
+        this.entityService.refreshAll();
     }
 
 }

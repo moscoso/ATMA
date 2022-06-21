@@ -2,11 +2,9 @@ import { ActionReducerMap } from '@ngrx/store';
 import { routerReducer } from '@ngrx/router-store';
 import { AppState } from './app.state';
 import { authReducer } from './auth/auth.reducer';
-import { exercisesReducer } from './exercise/exercise.reducer';
-import { workoutsReducer } from './workout/workout.reducer';
+import { eventReducer } from './event/event.reducer';
 import { profilesReducer } from './profile/profile.reducer';
 import { checkInsReducer } from './check-in/check-in.reducer';
-import { programsReducer } from './program/program.reducer';
 import { clientsReducer } from './client/client.reducer';
 import { chatReducer } from './chat/chat.reducer';
 
@@ -18,11 +16,9 @@ export const appReducers: ActionReducerMap < AppState > = {
     'chat': chatReducer,
     'clients': clientsReducer,
     'check-ins': checkInsReducer,
-    'exercises': exercisesReducer,
-    'programs': programsReducer,
+    'events': eventReducer,
     'profiles': profilesReducer,
     'router': routerReducer,
-    'workouts': workoutsReducer,
 };
 
 

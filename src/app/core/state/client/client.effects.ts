@@ -40,28 +40,6 @@ export class ClientEffects {
         })
     );
 
-    @Effect() assignProgramRequested$: Observable < ClientAction > = this.actions$.pipe(
-        ofType < ClientAction > (ClientActionType.AssignProgramRequested),
-        switchMap((action: Clients.AssignProgramRequested) => {
-            const changes = {'assignedProgram': action.program};
-            return from(this.clientService.update(action.id, changes)
-                .then(() => new Clients.ProgramAssigned(action.id, action.program))
-                .catch(error => new Clients.RequestFailed(error))
-            );
-        })
-    );
-
-    @Effect() clearProgramRequested$: Observable < ClientAction > = this.actions$.pipe(
-        ofType < ClientAction > (ClientActionType.ClearProgramRequested),
-        switchMap((action: Clients.ClearProgramRequested) => {
-            const changes = {'assignedProgram': null};
-            return from(this.clientService.update(action.id, changes)
-                .then(() => new Clients.ProgramCleared(action.id))
-                .catch(error => new Clients.RequestFailed(error))
-            );
-        })
-    );
-
     constructor(
         private clientService: ClientService,
         private actions$: Actions,

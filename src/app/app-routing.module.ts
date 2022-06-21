@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth/auth.guard';
 import { NoAuthGuard } from './guards/no-auth/no-auth.guard';
+import { ProfileGuard } from './guards/profile/profile.guard';
 
 
 
@@ -61,8 +63,11 @@ const routes: Routes = [
         'loadChildren': () => import('./home/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyPageModule)
     },
 
-
-
+	{
+        'path': 'events',
+        'loadChildren': () => import('./event/event-list/event-list.module').then(m => m.EventListPageModule),
+        // 'canActivate': [AuthGuard, ProfileGuard],
+    },
 
 ];
 

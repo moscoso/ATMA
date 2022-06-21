@@ -1,0 +1,76 @@
+<ion-grid>
+    <form [formGroup]=form (ngSubmit)=onSubmit(form.value)>
+        <ion-row>
+            <mat-form-field>
+                <mat-label for='name'>Event Name</mat-label>
+                <input matInput type="text" [formControl]="name" name="name"
+                       placeholder="Barbell Back Squat"
+                       autocomplete="off"
+                       enterKeyHint="next"
+                       required>
+                <div mat-icon-button matSuffix [hidden]="this.defaultValue === undefined">
+                    <mat-icon [ngStyle]="{'color': nameHasChanged() ? 'orange':'green'}">adjust</mat-icon>
+                </div>
+                <mat-error *ngIf="name.hasError('required')">An event name is required.</mat-error>
+                <mat-error *ngIf="name.hasError('entityIDTaken')">An event named {{name.value}} already exists
+                </mat-error>
+                <mat-error *ngIf="name.hasError('couldNotReachServer')">Could not reach server. Please check your
+                    connection and try again.</mat-error>
+                <mat-hint *ngIf="getSlug(name.value).length > 0 && name.enabled">This link will be at
+                    /event/{{getSlug(name.value)}}</mat-hint>
+            </mat-form-field>
+        </ion-row>
+
+        <ion-row>
+            <mat-form-field>
+                <mat-label for="facebookURL">Facebook URL</mat-label>
+                <input matInput type="url" [formControl]="facebookURL" name="facebookURL"
+                       placeholder="https://www.facebook.com/"
+                       autocomplete="off"
+                       enterKeyHint="next"
+                       required>
+                <button *ngIf="facebookURL.dirty" mat-icon-button matSuffix>
+                    <mat-icon [ngStyle]="{'color':facebookURL.valid ? 'green':'red'}">
+                        {{facebookURL.valid ? 'check' : 'cancel'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="facebookURL.hasError('required')">A valid URL is required.</mat-error>
+                <mat-error *ngIf="facebookURL.hasError('pattern')">The URL you provided is not a valid Eventbrite link
+                </mat-error>
+            </mat-form-field>
+        </ion-row>
+
+		<ion-row>
+            <mat-form-field>
+                <mat-label for="eventbriteURL">Eventbrite URL</mat-label>
+                <input matInput type="url" [formControl]="facebookURL" name="eventbriteURL"
+                       placeholder="https://www.eventbrite.com/"
+                       autocomplete="off"
+                       enterKeyHint="next"
+                       required>
+                <button *ngIf="eventbriteURL.dirty" mat-icon-button matSuffix>
+                    <mat-icon [ngStyle]="{'color':eventbriteURL.valid ? 'green':'red'}">
+                        {{eventbriteURL.valid ? 'check' : 'cancel'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="eventbriteURL.hasError('required')">A valid URL is required.</mat-error>
+                <mat-error *ngIf="eventbriteURL.hasError('pattern')">The URL you provided is not a valid Eventbrite link
+                </mat-error>
+            </mat-form-field>
+        </ion-row>
+
+        <ion-row>
+            <mat-form-field>
+                <mat-label for='description'>description</mat-label>
+                <textarea matInput type="text" [formControl]="description" name="description"
+                          placeholder="Prepare for an awsesome adventure"
+                          autocomplete="off"
+                          enterKeyHint="done"></textarea>
+            </mat-form-field>
+        </ion-row>
+
+        <ion-button type="submit"
+                    [disabled]="form.invalid || (requestInProgress$ | async) || form.untouched"
+                    expand="full">
+            <ion-icon [name]="buttonIcon"></ion-icon>&nbsp;{{buttonText}}
+        </ion-button>
+    </form>
+</ion-grid>

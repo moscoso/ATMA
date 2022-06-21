@@ -1,0 +1,12 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Create an Event</ion-title>
+        <ion-buttons slot="end">
+            <dismiss-modal-button modalID="create-event"></dismiss-modal-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <event-form (formSubmit)="onSubmit($event)" buttonText="Create Event"></event-form>
+</ion-content>
