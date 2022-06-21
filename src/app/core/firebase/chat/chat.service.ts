@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { first } from 'rxjs/operators';
-import { Message } from '../../../state/chat/chat.model';
+import { Message } from '../../state/chat/chat.model';
 
 @Injectable({
     'providedIn': 'root'
