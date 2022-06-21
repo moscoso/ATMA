@@ -55,6 +55,7 @@
     "ng2-pdf-viewer": "^6.3.2",
     "ngx-countdown": "^13.0.0",
     "ngx-file-drop": "^13.0.0",
+    "ngx-material-timepicker": "^5.5.3",
     "ngx-typed-js": "^2.1.1",
     "rxjs": "~6.6.3",
     "scroll-behavior-polyfill": "^2.0.13",
