@@ -56,7 +56,7 @@ export const createCharge = functions.https.onCall(async (data, context) => {
     return catchErrors(charge(uid, source, amount, idempotency_key));
 });
 
-export const getCharges = functions.https.onCall(async (data, context) => {
+export const getCharges = functions.https.onCall(async (_data, context) => {
     const uid = assertUID(context);
     return catchErrors(listCharges(uid, 100));
 });

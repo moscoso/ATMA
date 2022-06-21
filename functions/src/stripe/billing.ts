@@ -11,7 +11,7 @@ import Stripe from 'stripe';
  * @param returnURL the URL to which Stripe should send customers when they click on the link to return to your website.
  * @returns a billing session object
  */
-async function createBillingSession(userID: string, returnURL?: string): Promise<Stripe.BillingPortal.Session> {
+async function createBillingSession(userID: string, _returnURL?: string): Promise<Stripe.BillingPortal.Session> {
     const customer = await getCustomerID(userID);
     const params: Stripe.BillingPortal.SessionCreateParams = {
         customer
@@ -24,7 +24,7 @@ async function createBillingSession(userID: string, returnURL?: string): Promise
 
 /////// CLOUD FUNCTIONS ////////
 
-export const createBillingPortal = functions.https.onCall(async (data, context) => {
+export const createBillingPortal = functions.https.onCall(async (_data, context) => {
     const userID = assertUID(context);
     return catchErrors(createBillingSession(userID));
 });

@@ -119,7 +119,7 @@ export const cancelSubscription = functions.https.onCall(async (data, context) =
     return catchErrors(deleteSubscription(uid, plan));
 });
 
-export const getSubscriptions = functions.https.onCall(async (data, context) => {
+export const getSubscriptions = functions.https.onCall(async (_data, context) => {
     const uid = assertUID(context);
     return catchErrors(listSubscriptions(uid));
 });
