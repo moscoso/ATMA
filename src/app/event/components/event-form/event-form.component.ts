@@ -27,10 +27,19 @@ export class EventFormComponent implements OnInit {
         'validators': Validators.required,
         'asyncValidators': this.verifyEventIsUnique.bind(this)
     });
+
+
+	description = new FormControl('', [Validators.required]);
+
+	startDate = new FormControl('', [Validators.required]);
+	startTime = new FormControl('', [Validators.required]);
+	endDate = new FormControl('', [Validators.required]);
+	endTime = new FormControl('', [Validators.required]);
+
     facebookURL = new FormControl('', []);
 	eventbriteURL = new FormControl('', []);
 	thumbnail = new FormControl('', []);
-    description = new FormControl('', []);
+    
 
     form: FormGroup;
 
@@ -50,6 +59,10 @@ export class EventFormComponent implements OnInit {
         this.form = new FormGroup({
             'name': this.name,
 			'description': this.description,
+			'startDate': this.startDate,
+			'endDate': this.endDate,
+			'startTime': this.startTime,
+			'endTime': this.endTime,
             'facebookURL': this.facebookURL,
             'eventbriteURL': this.eventbriteURL,
             'thumbnail': this.thumbnail,
@@ -98,8 +111,7 @@ export class EventFormComponent implements OnInit {
         let values: Partial < AtmaEvent > ;
         values = {
             'id': this.getSlug(event.name),
-            'name': event.name,
-            'description': event.description,
+			...event
         };
         return values;
     }
