@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
-import * as AuthActions from './auth.actions';
-import { FireAuthService } from '../../firebase/auth/auth.service';
-import { pluck, first, distinct } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { selectUserData, selectAuthenticated, selectState, selectUserID } from './auth.selector';
-import { AuthModel } from './auth.model';
-import { StateModule } from '../state.module';
+import { distinct, first, pluck } from 'rxjs/operators';
 import { firstNonNullValue } from 'src/util/operator/Operators';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Store } from '@ngrx/store';
+import { FireAuthService } from '../../firebase/auth/auth.service';
+import { AppState } from '../app.state';
+import { StateModule } from '../state.module';
+import * as AuthActions from './auth.actions';
+import { AuthModel } from './auth.model';
+import { selectAuthenticated, selectState, selectUserData, selectUserID } from './auth.selector';
 
 /**
  * This service is responsible for dispatching actions to the Store
@@ -16,18 +17,42 @@ import { firstNonNullValue } from 'src/util/operator/Operators';
  */
 @Injectable({ 'providedIn': StateModule })
 export class AuthFacade {
+
+	lastCommitted: any;
+
     constructor(
         protected store: Store < AppState > ,
-        protected fireAuth: FireAuthService
+        protected fireAuth: FireAuthService,
+        protected firestore: AngularFirestore,
     ) {
-        this.fireAuth.getUser().pipe(distinct()).subscribe(async (authenticatedUser) => {
+        this.fireAuth.getUser$().pipe(distinct()).subscribe(async (authenticatedUser) => {
             if (authenticatedUser) {
                 const userInfo = this.scrapeUserInfo(authenticatedUser);
                 this.store.dispatch(new AuthActions.Authenticated(userInfo));
+                this.listenToClaims(authenticatedUser);
             } else {
                 this.store.dispatch(new AuthActions.NotAuthenticated());
             }
         });
+
+    }
+
+    public listenToClaims(user: any) {
+        this.firestore
+            .collection('user-claims')
+            .doc(user.uid)
+            .snapshotChanges().subscribe((snapshot) => {
+                const data = (snapshot as any).data()
+                console.log('New claims doc\n', data)
+                if (data._lastCommitted) {
+                    if (this.lastCommitted && !data._lastCommitted.isEqual(this.lastCommitted)) {
+                        // Force a refresh of the user's ID token
+                        console.log('Refreshing token')
+                        user.getIdToken(true)
+                    }
+                    this.lastCommitted = data._lastCommitted
+                }
+            })
     }
 
     /** Dispatch a LoginWithEmailAttempted action to the store */
@@ -94,9 +119,9 @@ export class AuthFacade {
         return this.store.select(selectUserID);
     }
 
-	public magicSignIn(email, name) {
-		return this.fireAuth.sendSignInLinkToEmail(email, name);
-	}
+    public magicSignIn(email, name) {
+        return this.fireAuth.sendSignInLinkToEmail(email, name);
+    }
 
     /**
      * Scrape the provided firebase.User object into a POJO matching the UserData interface.

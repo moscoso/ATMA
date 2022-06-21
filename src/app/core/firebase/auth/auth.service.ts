@@ -1,12 +1,7 @@
-import {
-    Injectable
-} from '@angular/core';
-import {
-    Observable
-} from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 /**
  * This service is responsible for user authentication with Firebase.
@@ -16,12 +11,26 @@ export class FireAuthService {
 
     constructor(
         private firebaseAuth: AngularFireAuth,
-    ) {}
+    ) {
+		this.firebaseAuth.onIdTokenChanged(async (user) => {
+			if (user) {
+				console.log(`new ID token for ${user.uid}`)
+				const result = await user.getIdTokenResult(false)
+				const isAdmin = result.claims.isAdmin
+				if (isAdmin) {
+					console.log("Custom claims say I am an admin!")
+				}
+				else {
+					console.log("Custom claims say I am not an admin.")
+				}
+			}
+		})
+	}
 
     /**
      * Observable of the currently signed-in user (or null if no user is signed in).
      */
-    getUser(): Observable < any > {
+    getUser$(): Observable < any > {
         return this.firebaseAuth.user;
     }
 
