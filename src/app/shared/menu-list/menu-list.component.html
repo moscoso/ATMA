@@ -1,6 +1,6 @@
 <ng-container *ngFor="let page of items">
     <ion-item *ngIf="page.link"
-              routerDirection="root"
+              routerDirection="forward"
               [routerLink]="page.link"
               routerLinkActive="selected"
               [routerLinkActiveOptions]="{exact:true}">

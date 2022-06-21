@@ -13,7 +13,7 @@ async function createUserAndSetProfile(profile: any, password: string): Promise<
     });
 }
 
-export const createUserAndProfile = functions.https.onCall(async (data, context) => {
+export const createUserAndProfile = functions.https.onCall(async (data, _context) => {
     const profile = assert(data, 'profile');
     const password = assert(data, 'password');
 

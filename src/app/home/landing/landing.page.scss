@@ -62,7 +62,7 @@
         text-decoration: underline;
     }
 
-    #events {
+    .cool-bg {
         background-image: url('/assets/img/cool-background.png');
         background-size: cover;
     }
@@ -115,7 +115,33 @@
         padding-bottom: 12px;
     }
 
+	#space {
+		background-image: url("/assets/img/cool-background.png");
+		z-index:0;
+		padding: 50px 0px;
+		transition: all 0.25s ease-in;
+	}
 
+
+
+	.quote {
+		font-family: 'Permanent Marker', cursive;
+		color: black;
+		font-weight: 400;
+		font-style: normal;
+		text-align: left;
+		font-stretch: 100%;
+		line-height: initial;
+		font-size: 24px;
+	}
+
+	/* XS */
+	@media only screen and (max-width: 575px) {
+		.quote {
+			font-size:28px;
+			min-height:454px;
+		}	
+	}
 
     img-comparison-slider {
         max-height: 750px;

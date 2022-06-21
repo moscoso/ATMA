@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthFacade } from './core/state/auth/auth.facade';
 import { ProfileFacade } from './core/state/profile/profile.facade';
 import { RouterStoreDispatcher } from './core/state/router/router.dispatcher';
 import { MenuItem } from './shared/menu-list/menu-list.component';
-import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import { SwUpdate } from '@angular/service-worker';
 import { ToastService } from './shared/toast/toast.service';
 
 @UntilDestroy()
@@ -17,6 +15,36 @@ import { ToastService } from './shared/toast/toast.service';
     'styleUrls': ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+	public atmaPages: MenuItem[] = [
+		{
+            'label': 'Home',
+            'icon': 'home',
+            'link': '/',
+        },
+        {
+            'label': 'Coaches',
+            'icon': 'people',
+            'scrollID': 'coaches'
+        },
+        {
+            'label': 'Transformations',
+            'icon': 'people',
+            'scrollID': 'transformations'
+        },
+        {
+            'label': 'Services',
+            'icon': 'people',
+            'scrollID': 'services'
+        },
+        {
+            'label': 'Store',
+            'icon': 'shirt-outline',
+            'href': 'https://strength-rx.myshopify.com/collections/all'
+        }
+
+    ];
+
+
     public landingPages: MenuItem[] = [
         {
             'label': 'Coaches',
@@ -122,7 +150,7 @@ export class AppComponent implements OnInit {
     {
         'label': 'Register',
         'icon': '',
-        'link': '/register'
+        'link': '/signup'
     }, ];
 
     public isAuthenticated$: Observable < boolean > = of (false);
@@ -130,7 +158,6 @@ export class AppComponent implements OnInit {
     public url$: Observable < string > = of ('/');
 
     constructor(
-        private platform: Platform,
         private profileService: ProfileFacade,
         private routerService: RouterStoreDispatcher,
         private authService: AuthFacade,
@@ -141,7 +168,6 @@ export class AppComponent implements OnInit {
     }
 
     async initializeApp() {
-        this.platform.ready().then(() => {});
         this.profileService.loadAll();
         this.iAmTrainer$ = this.profileService.selectUserIsTrainer();
         this.addAvatarToMenu();
@@ -149,7 +175,7 @@ export class AppComponent implements OnInit {
             untilDestroyed(this)
         ).subscribe(profile => {
             this.addAvatarToMenu();
-        });
+        });	  
     }
 
     ngOnInit() {

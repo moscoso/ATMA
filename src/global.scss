@@ -30,6 +30,7 @@
 
 /** Google Fonts **/
 @import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 html {
     scroll-behavior: smooth;
@@ -42,7 +43,7 @@ ion-title {
     line-height: 30px;
 }
 
-.ion-page > ion-content{
+.ion-page>ion-content {
     --background: url(/assets/img/hex-bg.webp);
 }
 
@@ -51,8 +52,8 @@ ion-title {
 }
 
 .modal-full {
-    --min-width:100%;
-    --min-height:100%;
+    --min-width: 100%;
+    --min-height: 100%;
 }
 
 .modal-short-height {
@@ -63,6 +64,7 @@ ion-title {
 
 .modal-short-form {
     --backdrop-opacity: 0.5;
+
     @media screen and (min-width: 769px) {
         --height: 275px;
     }
@@ -112,3 +114,81 @@ ion-button[type=submit] {
     background: var(--ion-color-primary);
 }
 
+h1.atma-title {
+    font-size: 40px;
+    font-family: 'Teko', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+h2.atma-title {
+    font-family: 'Teko', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+img.rounded-8 {
+    border-radius: 8%;
+}
+
+.rgb {
+    transform-style: preserve-3d;
+}
+
+.rgb::after {
+    content: "";
+    background: linear-gradient(45deg,
+            #ff0000 0%,
+            #ff9a00 10%,
+            #d0de21 20%,
+            #4fdc4a 30%,
+            #3fdad8 40%,
+            #2fc9e2 50%,
+            #1c7fee 60%,
+            #5f15f2 70%,
+            #ba0cf8 80%,
+            #fb07d9 90%,
+            #ff0000 100%) repeat 0% 0% / 300% 100%;
+    position: absolute;
+    inset: -3px;
+    border-radius: 16px;
+    filter: blur(8px);
+    transform: translateZ(-1px);
+    /*or z-index */
+    animation: rgb 6s linear infinite;
+}
+
+@keyframes rgb {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.parallax {
+    background-image: url("assets/img/cool-background.png");
+    /* Set a specific height */
+    min-height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -moz-transform: none;
+}

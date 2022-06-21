@@ -9,60 +9,75 @@
 
 <ion-content>
     <ion-grid>
-        <form [formGroup]=form (ngSubmit)=onSubmit(form.value)>
-            <ion-row>
-                <mat-form-field>
-                    <mat-label for='name'>Email</mat-label>
-                    <input matInput type="email" [formControl]="email" name="email"
-                           autocomplete="email"
-                           clearInput="true" required
-                           color="primary" enterKeyHint="next">
-                    <mat-error *ngIf="email.hasError('required') || email.hasError('email')">Please enter a valid email
-                    </mat-error>
-                </mat-form-field>
-            </ion-row>
-            <ion-row>
-                <mat-form-field>
-                    <mat-label for="password">Password </mat-label>
+        <ion-row>
+            <ion-col sizeMd="4" class="ion-hide-md-down">
+                <img src="assets/icon/logo.jpg" />
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="12" sizeXs="12">
+				<h1 class="atma-title">Create an account</h1>
+                <form [formGroup]=form (ngSubmit)=onSubmit(form.value)>
+                    <ion-row>
+                        <mat-form-field>
+                            <mat-label for='name'>Email</mat-label>
+                            <input matInput type="email" [formControl]="email" name="email"
+                                   autocomplete="email"
+                                   clearInput="true" required
+                                   color="primary" enterKeyHint="next">
+                            <mat-error *ngIf="email.hasError('required') || email.hasError('email')">Please enter a valid email
+                            </mat-error>
+                        </mat-form-field>
+                    </ion-row>
+                    <ion-row>
+                        <mat-form-field>
+                            <mat-label for="password">Password </mat-label>
 
-                    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" name="password"
-                            autocomplete="new-password"
-                           required clearInput="true"
-                           color="primary" enterKeyHint="next">
-                    <div mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-                            [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hidePassword">
-                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </div>
-                    <mat-hint *ngIf="!password.hasError('minlength')">Hint: Your password should be atleast 6 characters!</mat-hint>
-                    <mat-error *ngIf="password.hasError('required')">Please choose a password</mat-error>
-                    <mat-error *ngIf="password.hasError('minlength')">Password should be atleast 6 characters"
+                            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" name="password"
+                                   autocomplete="new-password"
+                                   required clearInput="true"
+                                   color="primary" enterKeyHint="next">
+                            <div mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                                 [attr.aria-label]="'Hide password'"
+                                 [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </div>
+                            <mat-hint *ngIf="!password.hasError('minlength')">Hint: Your password should be atleast 6 characters!</mat-hint>
+                            <mat-error *ngIf="password.hasError('required')">Please choose a password</mat-error>
+                            <mat-error *ngIf="password.hasError('minlength')">Password should be atleast 6 characters"
+                            </mat-error>
+                            <mat-error *ngIf="password.hasError('maxlength')">Password must be a maximum of 128 characters
+                            </mat-error>
+                        </mat-form-field>
+                    </ion-row>
+                    <ion-row>
+                        <mat-form-field>
+                            <mat-label for="confirmPassword">Confirm Password </mat-label>
+                            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="confirmPassword"
+                                   name="confirmPassword"
+                                   required clearInput="true"
+                                   autocomplete="new-password"
+                                   color="primary" enterKeyHint="go">
+                            <div mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                                 [attr.aria-label]="'Hide password'"
+                                 [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </div>
+                            <mat-error *ngIf="confirmPassword.hasError('required')">Please confirm your password</mat-error>
+                            <mat-error *ngIf="password.hasError('minlength')">Password should be atleast 6 characters"
+                            </mat-error>
+                            <mat-error *ngIf="confirmPassword.hasError('maxlength')">Password must be a maximum of 128 characters
+                            </mat-error>
+                        </mat-form-field>
+                    </ion-row>
+                    <mat-error *ngIf="form.hasError('passwordMismatch') && password.dirty && confirmPassword.dirty">The passwords do not
+                        match
                     </mat-error>
-                    <mat-error *ngIf="password.hasError('maxlength')">Password must be a maximum of 128 characters
-                    </mat-error>
-                </mat-form-field>
-            </ion-row>
-            <ion-row>
-                <mat-form-field>
-                    <mat-label for="confirmPassword">Confirm Password </mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="confirmPassword" name="confirmPassword"
-                           required clearInput="true"
-                           autocomplete="new-password"
-                           color="primary" enterKeyHint="go">
-                    <div mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-                            [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hidePassword">
-                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </div>
-                    <mat-error *ngIf="confirmPassword.hasError('required')">Please confirm your password</mat-error>
-                    <mat-error *ngIf="password.hasError('minlength')">Password should be atleast 6 characters"
-                    </mat-error>
-                    <mat-error *ngIf="confirmPassword.hasError('maxlength')">Password must be a maximum of 128 characters
-                    </mat-error>
-                </mat-form-field>
-            </ion-row>
-            <mat-error *ngIf="form.hasError('passwordMismatch') && password.dirty && confirmPassword.dirty">The passwords do not match</mat-error>
-            <ion-button type="submit" [disabled]="form.invalid">Register</ion-button>
-        </form>
+                    <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid">Register</ion-button>
+					<div class="tip"><a routerLink="/login">Already have an account?</a></div>
+                </form>
+            </ion-col>
+			<ion-col sizeMd="4" class="ion-hide-md-up">
+                <img src="assets/icon/logo.jpg" />
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>

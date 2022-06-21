@@ -8,6 +8,7 @@ import { LandingPage } from './landing.page';
 import { HomeModule } from '../home.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AccountModule } from 'src/app/account/account.module';
+import { EventModule } from 'src/app/event/event.module';
 
 @NgModule({
     'imports': [
@@ -15,6 +16,7 @@ import { AccountModule } from 'src/app/account/account.module';
         FormsModule,
         IonicModule,
         HomeModule,
+		EventModule,
         SharedModule,
 		AccountModule,
         LandingPageRoutingModule

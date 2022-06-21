@@ -9,36 +9,49 @@
 
 <ion-content>
     <ion-grid>
-        <form [formGroup]=form (ngSubmit)=onSubmit(form.value)>
-            <ion-row>
-                <mat-form-field>
-                    <mat-label for='name'>Email</mat-label>
-                    <input matInput type="email" [formControl]="email" name="email"
-                           autocomplete="email"
-                           clearInput="true" required
-                           color="primary" enterKeyHint="next">
-                    <mat-error *ngIf="email.hasError('required') || email.hasError('email')">Please enter a valid email
-                    </mat-error>
-                </mat-form-field>
-            </ion-row>
-            <ion-row>
-                <mat-form-field>
-                    <mat-label for="password">Password </mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" name="password"
-                            autocomplete="current-password"
-                           required clearInput="true"
-                           color="primary" enterKeyHint="go">
-                    <div mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-                            [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hidePassword">
-                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </div>
-                    <mat-error *ngIf="password.hasError('required')">Please enter your password</mat-error>
-                    <mat-error *ngIf="password.hasError('maxlength')">Password must be a maximum of 128 characters
-                    </mat-error>
-                </mat-form-field>
-            </ion-row>
-            <ion-button expand="full" type="submit" [disabled]="form.invalid">Log In</ion-button>
-        </form>
+        <ion-row>
+			<ion-col sizeMd="4" class="ion-hide-md-down">
+                <img src="assets/icon/logo.jpg" tilt />
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="12" sizeXs="12">
+                <h1 class="atma-title">Welcome Back!</h1>
+                <h2 class="atma-title">We are so excited to see you!</h2>
+                <form [formGroup]=form (ngSubmit)=onSubmit(form.value)>
+                    <ion-row>
+                        <mat-form-field>
+                            <mat-label for='name'>Email</mat-label>
+                            <input matInput type="email" [formControl]="email" name="email"
+                                   autocomplete="email"
+                                   clearInput="true" required
+                                   color="primary" enterKeyHint="next">
+                            <mat-error *ngIf="email.hasError('required') || email.hasError('email')">Please enter a valid email
+                            </mat-error>
+                        </mat-form-field>
+                    </ion-row>
+                    <ion-row>
+                        <mat-form-field>
+                            <mat-label for="password">Password </mat-label>
+                            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" name="password"
+                                   autocomplete="current-password"
+                                   required clearInput="true"
+                                   color="primary" enterKeyHint="done">
+                            <div mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                                 [attr.aria-label]="'Hide password'"
+                                 [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </div>
+                            <mat-error *ngIf="password.hasError('required')">Please enter your password</mat-error>
+                            <mat-error *ngIf="password.hasError('maxlength')">Password must be a maximum of 128 characters
+                            </mat-error>
+                        </mat-form-field>
+                    </ion-row>
+                    <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid">Login</ion-button>
+					<div class="tip">Need an account? <a routerLink="/signup">Register</a></div>
+                </form>
+            </ion-col>
+			<ion-col sizeMd="4" class="ion-hide-md-up">
+                <img src="assets/icon/logo.jpg" />
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>

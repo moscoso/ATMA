@@ -18,6 +18,8 @@ export class LandingPage implements OnInit {
 
     isAuthenticated$: Observable < boolean > = of (false);
 
+	typeLevel = 0;
+
     name = '';
 
     constructor(
@@ -38,31 +40,12 @@ export class LandingPage implements OnInit {
         this.isAuthenticated$.subscribe(auth => {
 			this.scrollPage('events');
         });
-
-		try {
-			if (this.fireAuth.isSignInLink(window.location.href)) {
-				this.signIn();
-			}
-		}catch(error) {
-			this.toastService.failed(`Something went wrong`, error);
-		}
         
 
         this.route.queryParams.subscribe(params => {
             this.name = window.localStorage.getItem('name');
 
         });
-    }
-
-    async signIn() {
-        const email = window.localStorage.getItem('email');
-        const link = window.location.href;
-        try {
-            await this.fireAuth.signInWithEmailLink(email, link);
-        } catch (error) {
-            console.log(error);
-            this.toastService.failed(`Something went wrong`, error);
-        }
     }
     /**
      * Get a resource from the Firebase's project storage bucket
@@ -72,6 +55,15 @@ export class LandingPage implements OnInit {
         const storageBucket = `strengthrx-protocols.appspot.com`;
         return `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/${slug}`;
     }
+
+	setTypeLevel(level: number) {
+		this.typeLevel = level;
+	}
+
+	resetTypeLevel(){
+		this.typeLevel = -1;
+		this.typeLevel = 0;
+	}
 
 
     async openModal() {

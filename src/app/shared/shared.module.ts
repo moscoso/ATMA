@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ImageComparisonModule } from './image-comparison/image-comparison.module';
 import { EntityListRefresherComponent } from './entity-list-refresher/entity-list-refresher.component';
 import { TiltDirective } from './tilt/tilt.directive';
+import { NgxTypedJsModule } from 'ngx-typed-js';
 
 @NgModule({
     'imports': [
@@ -16,6 +17,7 @@ import { TiltDirective } from './tilt/tilt.directive';
         RouterModule,
         CommonModule,
         ImageComparisonModule,
+		NgxTypedJsModule,
         YouTubePlayerModule,
     ],
     'declarations': [
@@ -31,6 +33,7 @@ import { TiltDirective } from './tilt/tilt.directive';
         ImageComparisonModule,
         MenuListComponent,
 		TiltDirective,
+		NgxTypedJsModule,
         YouTubePlayerModule,
         YoutubePlayerComponent,
     ]
