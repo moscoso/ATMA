@@ -11,6 +11,6 @@ export class EventService extends EntityService < AtmaEvent > {
         public firestore: AngularFirestore,
         public functions: AngularFireFunctions,
     ) {
-        super(firestore, functions, 'events', {'defaultEntity': ATMA_EVENT_INIT_MODEL, 'IDSource': 'name'});
+        super(firestore, functions, 'events', {'defaultEntity': ATMA_EVENT_INIT_MODEL, 'IDSource': 'random'});
     }
 }
