@@ -18,18 +18,23 @@
 
     <link rel="icon" type="image/png" href="assets/icon/icon.jpg" />
 
+    <link href="assets/css/preloader.css" rel="stylesheet"></link>
+
     <!-- add to homescreen for ios -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#1976d2">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 
-<body class="mat-typography">
+<body>
+	<div id="rootPreloader" class="preloader">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
     <app-root></app-root>
     <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>

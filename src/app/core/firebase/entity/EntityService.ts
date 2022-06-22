@@ -121,7 +121,11 @@ export abstract class EntityService < T > {
         if (nameIsID && changes.name) {
             return this.updateAndMoveDocument(entityID, changes.name, changes);
         } else {
-            await this.entityCollection.doc(entityID).update(changes);
+            await this.entityCollection.doc(entityID).update(changes).catch(reason => {
+				if(reason.code === 'nout-found'){
+					this.create(changes as T).catch(reason => console.log(reason));
+				}
+			});
             return changes;
         }
     }

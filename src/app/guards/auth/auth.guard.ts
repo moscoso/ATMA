@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { ToastService } from 'src/app/shared/toast/toast.service';
 import { FireAuthService } from 'src/app/core/firebase/auth/auth.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
+import { Injectable } from '@angular/core';
+import {
+    ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree
+} from '@angular/router';
+
 /**
  * A route guard that checks if the user is authorized before activating the route
  */

@@ -105,21 +105,6 @@ export class ProfileFacade {
     }
 
     /**
-     * Select a flag indicating whether the user is a trainer
-     */
-    public selectUserIsTrainer(): Observable < boolean > {
-        return this.store.select(fromProfile.selectUserIsTrainer);
-    }
-
-    public selectAllClients(): Observable < Profile[] > {
-        return this.store.select(fromProfile.selectAllClients);
-    }
-
-    public selectAllTrainers(): Observable < Profile[] > {
-        return this.store.select(fromProfile.selectAllTrainers);
-    }
-
-    /**
      * Get the Avatar of a profile. If no photoURL exists for the profile,
      * fallback to genetating an avatar using their initials.
      * @param profile the profile to get the Avatar of
@@ -130,6 +115,6 @@ export class ProfileFacade {
     }
 
     public getInitialsAvatar(profile: Profile): string {
-        return `https://ui-avatars.com/api/?name=${profile.firstName}+${profile.lastName}&size=200&background=3880ff&color=fff`;
+        return `https://ui-avatars.com/api/?name=${profile.firstName}+${profile.lastName}&size=200&background=7B68EE&color=fff`;
     }
 }

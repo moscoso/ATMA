@@ -70,4 +70,28 @@ export class ToastService {
         });
         toast.present();
     }
+
+	/**
+     * Creates a toast that prompts the user for confirmation. If the user confirms a handler function will be called
+	 * @param header the header to appear on the toast
+	 * @param message the message to appear on the toast
+	 * @param handler the function to call if the user confirms
+	 * @param confirmText text for the confirmation button
+	 */
+    async ask(header: string, message: string, handler: () => boolean | void | Promise < boolean | void >, confirmText = "Ok" ) {
+        const toast = await this.toastController.create({
+            'header': header,
+            'message': message,
+            'color': 'primary',
+            'buttons': [
+            {
+                'text': confirmText,
+                'handler': handler
+            }, {
+                'text': 'Cancel',
+                'role': 'cancel'
+            }],
+        });
+        toast.present();
+    }
 }

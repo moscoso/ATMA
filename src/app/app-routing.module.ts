@@ -4,8 +4,6 @@ import { AuthGuard } from './guards/auth/auth.guard';
 import { NoAuthGuard } from './guards/no-auth/no-auth.guard';
 import { ProfileGuard } from './guards/profile/profile.guard';
 
-
-
 const routes: Routes = [
     {
         'path': '',
@@ -40,12 +38,7 @@ const routes: Routes = [
         'path': 'join',
         'loadChildren': () => import('./account/join/join.module').then(m => m.JoinPageModule),
         'canActivate': [NoAuthGuard]
-    },
-    {
-        'path': 'create-profile',
-        'redirectTo': 'join'
-    },
-   
+    },   
     {
         'path': 'terms',
         'loadChildren': () => import('./home/terms-of-service/terms-of-service.module').then(m => m.TermsOfServicePageModule)
@@ -68,6 +61,23 @@ const routes: Routes = [
         'loadChildren': () => import('./event/event-list/event-list.module').then(m => m.EventListPageModule),
         // 'canActivate': [AuthGuard, ProfileGuard],
     },
+	{
+        'path': 'profile',
+        'loadChildren': () => import('./profile/view-profile/view-profile.module').then(m => m
+            .ViewProfilePageModule),
+        'canActivate': [AuthGuard, ProfileGuard],
+    },
+	{
+        'path': 'create-profile',
+        'loadChildren': () => import('./profile/create-profile/create-profile.module').then(m => m.CreateProfilePageModule),
+        'canActivate': [AuthGuard],
+    },
+	{
+        'path': 'edit-profile',
+        'loadChildren': () => import('./profile/edit-profile/edit-profile.module').then(m => m.EditProfilePageModule),
+        'canActivate': [AuthGuard, ProfileGuard],
+    },
+
 
 ];
 

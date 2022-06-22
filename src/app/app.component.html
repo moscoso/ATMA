@@ -1,7 +1,17 @@
 <ion-app>
+	
 	<!-- <ion-router-outlet id="main-content"></ion-router-outlet> -->
 
+
+
     <ion-split-pane contentId="main-content" [disabled]="['/', '/signup', '/login'].includes(url$ | async)">
+	
+		<div class="preloader" *ngIf="(routeLoading$ | async) === true">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
         <ion-menu contentId="main-content" type="overlay">
             <ion-content>
                 <ion-list lines="none">
@@ -31,6 +41,7 @@
                 </ion-list>
             </ion-footer>
         </ion-menu>
-        <ion-router-outlet id="main-content"></ion-router-outlet>
+        <ion-router-outlet id="main-content">
+		</ion-router-outlet>
     </ion-split-pane>
 </ion-app>

@@ -1,0 +1,19 @@
+
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Edit Profile</ion-title>
+        <ion-buttons slot="end">
+            <dismiss-modal-button modalID="edit-profile"></dismiss-modal-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-content>
+        <profile-form buttonText="Edit Profile" (formSubmit)="onSubmit($event)"></profile-form>
+    </ion-content>
+</ion-content> 

@@ -67,6 +67,7 @@
                           placeholder="Prepare for an awsesome adventure"
                           autocomplete="off"
                           enterKeyHint="next"></textarea>
+				<mat-error *ngIf="name.hasError('required')">A description is required.</mat-error>
             </mat-form-field>
         </ion-row>
 

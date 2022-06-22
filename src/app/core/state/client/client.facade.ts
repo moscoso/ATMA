@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity';
 import { AllRequested } from './client.actions';
 import { Profile } from '../profile/profile.model';
-import { Program } from '../program/program.model';
 import { Client } from './client.model';
 
 /**
@@ -20,16 +19,6 @@ export class ClientFacade {
     constructor(
         protected store: Store < AppState > ,
     ) {}
-
-    /** Dispatch an AssignProgramRequested action to the store */
-    public assignProgram(clientID: string, program: Program): void {
-        this.store.dispatch(new ClientAction.AssignProgramRequested(clientID, program));
-    }
-
-    /** Dispatch an AssignTrainerRequested action to the store */
-    public assignTrainer(clientID: string, trainer: Profile): void {
-        this.store.dispatch(new ClientAction.AssignTrainerRequested(clientID, trainer));
-    }
 
     /** Dispatch a ClearProgramRequested action to the store */
     public clearProgram(clientID: string): void {

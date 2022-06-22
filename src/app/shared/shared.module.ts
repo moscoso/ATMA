@@ -10,9 +10,11 @@ import { ImageComparisonModule } from './image-comparison/image-comparison.modul
 import { EntityListRefresherComponent } from './entity-list-refresher/entity-list-refresher.component';
 import { TiltDirective } from './tilt/tilt.directive';
 import { NgxTypedJsModule } from 'ngx-typed-js';
+import { AnimateModule } from '@wizdm/animate';
 
 @NgModule({
     'imports': [
+		AnimateModule,
         IonicModule,
         RouterModule,
         CommonModule,
@@ -28,6 +30,7 @@ import { NgxTypedJsModule } from 'ngx-typed-js';
         YoutubePlayerComponent,
     ],
     'exports': [
+		AnimateModule,
         DismissModalButtonComponent,
         EntityListRefresherComponent,
         ImageComparisonModule,

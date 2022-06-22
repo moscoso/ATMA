@@ -31,7 +31,7 @@ export class EventDetailPage implements OnInit {
     ngOnInit() {
         this.eventService.loadAll();
         this.event$ = this.eventService.selectEventByRouteURL();
-        this.isAdmin$ = this.profileService.selectUserIsTrainer();
+        // this.isAdmin$ = this.profileService.selectUserIsTrainer();
         this.requestInProgress$ = this.eventService.selectRequestInProgress();
     }
 

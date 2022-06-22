@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TrainerGuard } from 'src/app/guards/trainer/trainer.guard';
 import { EventListPage as EventListPage } from './event-list.page';
 
 const routes: Routes = [

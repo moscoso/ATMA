@@ -54,32 +54,6 @@ export const selectProfileBelongsToUser = createSelector(
 );
 
 /**
- * Select the authenticated user to see if the user is a trainer
- */
-export const selectUserIsTrainer =  createSelector(
-    selectUserProfile,
-    profile => profile && profile.isTrainer
-);
-
-/**
- * Select all clients
- */
-export const selectAllClients = createSelector(
-    selectAll,
-    profiles => profiles.filter(profile => profile.isClient),
-);
-
-
-/**
- * Select all trainers (essentially everyone who is not a trainer)
- */
-export const selectAllTrainers = createSelector(
-    selectAll,
-    profiles => profiles.filter(profile => profile.isTrainer),
-);
-
-
-/**
  * Use the router state's URL to select an Profile by ID.
  */
 export const selectProfileByRouteURL = createSelector(

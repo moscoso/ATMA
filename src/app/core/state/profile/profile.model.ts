@@ -9,12 +9,12 @@ export interface Profile {
     firstName: string;
     lastName: string;
     birthday: Timestamp;
-    goal: string;
-    healthConditions: string;
+    // goal: string;
+    // healthConditions: string;
     joined: Date;
-    height: Height;
-    isClient: boolean;
-    isTrainer: boolean;
+    // height: Height;
+    // isClient: boolean;
+    // isTrainer: boolean;
     photoURL: string;
     sex: 'M' | 'F';
 }
@@ -36,11 +36,11 @@ export const PROFILE_INIT_MODEL: Profile = {
     'firstName': '',
     'lastName': '',
     'birthday': undefined,
-    'goal': '',
+    // 'goal': '',
     'joined': new Date(),
-    'healthConditions': '',
-    'height': { 'feet': 0, 'inches': 0 },
-    'isClient': false,
-    'isTrainer': false,
+    // 'healthConditions': '',
+    // 'height': { 'feet': 0, 'inches': 0 },
+    // 'isClient': false,
+    // 'isTrainer': false,
     'sex': 'M',
 };

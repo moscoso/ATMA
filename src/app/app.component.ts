@@ -1,5 +1,5 @@
-import { Observable, of } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthFacade } from './core/state/auth/auth.facade';
@@ -7,39 +7,44 @@ import { ProfileFacade } from './core/state/profile/profile.facade';
 import { RouterStoreDispatcher } from './core/state/router/router.dispatcher';
 import { MenuItem } from './shared/menu-list/menu-list.component';
 import { ToastService } from './shared/toast/toast.service';
+import { filter, map, tap } from 'rxjs/operators';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
     'selector': 'app-root',
     'templateUrl': 'app.component.html',
-    'styleUrls': ['app.component.scss']
+    'styleUrls': ['app.component.scss'],
+	'host': {
+		'class': 'mat-typography'
+	}
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
 	public atmaPages: MenuItem[] = [
 		{
             'label': 'Home',
             'icon': 'home',
             'link': '/',
         },
+        // {
+        //     'label': 'Coaches',
+        //     'icon': 'people',
+        //     'scrollID': 'coaches'
+        // },
+        // {
+        //     'label': 'Transformations',
+        //     'icon': 'people',
+        //     'scrollID': 'transformations'
+        // },
+        // {
+        //     'label': 'Services',
+        //     'icon': 'people',
+        //     'scrollID': 'services'
+        // },
         {
-            'label': 'Coaches',
-            'icon': 'people',
-            'scrollID': 'coaches'
-        },
-        {
-            'label': 'Transformations',
-            'icon': 'people',
-            'scrollID': 'transformations'
-        },
-        {
-            'label': 'Services',
-            'icon': 'people',
-            'scrollID': 'services'
-        },
-        {
-            'label': 'Store',
-            'icon': 'shirt-outline',
-            'href': 'https://strength-rx.myshopify.com/collections/all'
+            'label': 'Events',
+            'icon': 'calendar',
+            'link': '/events'
         }
 
     ];
@@ -156,6 +161,9 @@ export class AppComponent implements OnInit {
     public isAuthenticated$: Observable < boolean > = of (false);
     public iAmTrainer$: Observable < boolean > = of (false);
     public url$: Observable < string > = of ('/');
+	public contentReady$: BehaviorSubject < boolean > = new BehaviorSubject(false);
+
+	public routeLoading$: Observable < boolean > = of (false);
 
     constructor(
         private profileService: ProfileFacade,
@@ -163,40 +171,77 @@ export class AppComponent implements OnInit {
         private authService: AuthFacade,
         private serviceWorkerUpdate: SwUpdate,
         private toastService: ToastService,
+		private router: Router
     ) {
         this.initializeApp();
     }
 
     async initializeApp() {
         this.profileService.loadAll();
-        this.iAmTrainer$ = this.profileService.selectUserIsTrainer();
+        // this.iAmTrainer$ = this.profileService.selectUserIsTrainer();
         this.addAvatarToMenu();
         this.profileService.selectUserAsProfile().pipe(
             untilDestroyed(this)
         ).subscribe(profile => {
             this.addAvatarToMenu();
-        });	  
+        });
+
+		combineLatest([
+			this.contentReady$,
+			timer(800)
+		]).pipe( filter(([a, b]) => a === true ))
+		.subscribe((x) => {
+			document.getElementById("rootPreloader").className = 'preloader animate__animated animate__fadeOut disabled';
+		});		
+
+		
     }
 
     ngOnInit() {
         this.isAuthenticated$ = this.authService.selectAuthenticated();
         this.url$ = this.routerService.selectURL();
 
-		this.serviceWorkerUpdate.checkForUpdate()
+		this.serviceWorkerUpdate.checkForUpdate().then(updateAvailable => {
+			if(updateAvailable) {
+				this.toastService.primary("New update available");
+			} else {
+				this.toastService.primary("You are already up to date");
+			}
+		}).catch(reason => {
+			this.toastService.failed("Failed to check for update", reason)
+		});
 
-        if (this.serviceWorkerUpdate.isEnabled) {
-            this.serviceWorkerUpdate.available.subscribe(() => {
-                if (confirm('New version available. Load New Version?')) {
-					this.serviceWorkerUpdate.activateUpdate();
-                    // window.location.reload();
-                }
-            });
-        }
+		const activateUpdate = () => this.serviceWorkerUpdate.activateUpdate().then((updated) => {
+			if(updated) {
+				this.toastService.success("New Version Activated!");
+			} else {
+				this.toastService.primary("You are already up to date");
+			}
+		}).catch(reason => {
+			this.toastService.failed("Failed to update", reason)
+		});
 
-        this.serviceWorkerUpdate.activated.subscribe(() => {
-            this.toastService.primary('New Version Activated!');
-        });
+		activateUpdate();
+
+		this.serviceWorkerUpdate.versionUpdates.subscribe((x) => {
+			console.log(x);
+			this.toastService.ask("New version available.", " Load New Version?", activateUpdate, "Update");
+		});
+
+		this.routeLoading$ = this.router.events.pipe(
+			filter(e => 
+				e instanceof NavigationStart ||
+				e instanceof NavigationEnd ||
+				e instanceof NavigationCancel || 
+				e instanceof NavigationError
+			),
+			map(e => (e instanceof NavigationStart)),
+		)
     }
+
+	ngAfterContentInit(): void {
+		this.contentReady$.next(true);
+	}
 
     logout() {
         this.authService.logout();
