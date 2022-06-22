@@ -1,17 +1,18 @@
 import * as functions from 'firebase-functions';
 import { assert, assertUID, catchErrors } from '../helpers';
-import { stripe, db, STRIPE_COLLECTION } from '../config';
+import { stripe, db } from '../config';
 import { attachSource } from './payment_sources';
 import Stripe from 'stripe';
-import { getOrCreateCustomer } from './customers';
+import { getOrCreateCustomerAccount } from './account';
+import { STRIPE_COLLECTION_NAME } from '.';
 
 /** 
- * Gets a list of a Firebase users' charges
+ * Gets a list of a Firebase users' charges from their stripe customer account
  * @param userID the unique identifier corresponding to the user in Firebase
  * @param limit an optional limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
  */
 export async function listCharges(userID: string, limit? : number) {
-    const account = await db.collection(STRIPE_COLLECTION).doc(userID).get();
+    const account = await db.collection(STRIPE_COLLECTION_NAME).doc(userID).get();
     const data = account.data();
     if(data){
         const customerID = data['stripeCustomerID']
@@ -26,14 +27,14 @@ export async function listCharges(userID: string, limit? : number) {
 }
 
 /**
- * Charges a Firebase user for a specific amount of $
+ * Charges a Firebase user for a specific amount of $ on their stripe account
  * @param userID the unique identifier corresponding to the user in Firebase
  * @param source the payment source to charge
  * @param amount the amount to collect in pennies. For example, 2499 === $24.99
  * @param idempotencyKey an optional key used by Stripe to ensure that a charge called more than once will only be executed once
  */
 export async function charge(userID: string, source: string, amount: number, idempotencyKey ? : string) {
-    const customer = await getOrCreateCustomer(userID);
+    const customer = await getOrCreateCustomerAccount(userID);
     const params: Stripe.ChargeCreateParams = {
         amount,
         customer: customer.id,
@@ -47,6 +48,11 @@ export async function charge(userID: string, source: string, amount: number, ide
 
 /////// CLOUD FUNCTIONS ////////
 
+/**
+ * Charge a user $
+ * 
+ * Trigger: `onCall`
+ */
 export const createCharge = functions.https.onCall(async (data, context) => {
     const uid = assertUID(context);
     const source = assert(data, 'source');
@@ -56,6 +62,11 @@ export const createCharge = functions.https.onCall(async (data, context) => {
     return catchErrors(charge(uid, source, amount, idempotency_key));
 });
 
+/**
+ * List $ paid by a user
+ * 
+ * Trigger: `onCall`
+ */
 export const getCharges = functions.https.onCall(async (_data, context) => {
     const uid = assertUID(context);
     return catchErrors(listCharges(uid, 100));

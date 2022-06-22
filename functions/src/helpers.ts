@@ -2,14 +2,16 @@ import * as functions from 'firebase-functions';
 import { CallableContext } from 'firebase-functions/lib/providers/https';
 
 /**
- * Validates that a key-value pair exists in the data payload
+ * Validates that a key-value pair exists in the data payload.
  * 
  * @param data the data payload to verified
  * @param key the variable name of the key-value pair to validate
  * 
- * @throws an `invalid-argument` error when a specified key is missing from the `data` object
+ * @returns the value from the data payload
+ * 
+ * @throws an `invalid-argument` error when a specified key is missing from the `data` object or is undefined
  */
-export function assert(data: any, key: string) {
+export function assert(data: any, key: string): any {
     if (data[key]) {
         return data[key];
     } else {
@@ -24,14 +26,14 @@ export function assert(data: any, key: string) {
  * 
  * @returns the unique ID corresponding to the the authorized user
  * 
- * @throws an error when the function is called by an unauthorized user
+ * @throws a `permission-denied` error when the function is called by an unauthorized user
  */
 export function assertUID(context: CallableContext): string {
     const userIsAuthorized = context.auth;
     if (userIsAuthorized) {
         return userIsAuthorized.uid;
     } else {
-        throw new functions.https.HttpsError('permission-denied', 'The function must be called while authenticated!');
+        throw new functions.https.HttpsError('permission-denied', 'The function must be called by an authorized user!');
     }
 }
 

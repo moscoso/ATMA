@@ -1,12 +1,17 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-admin.initializeApp()
 const auth = admin.auth()
 
 interface ClaimsDocumentData extends admin.firestore.DocumentData {
     _lastCommitted?: admin.firestore.Timestamp
 }
 
+/**
+ * Allows a Firebase admin to set custom claims for a user by just setting a document @ `'user-claims/{uid}'`
+ * @see ~ https://firebase.google.com/docs/auth/admin/custom-claims
+ * 
+ * Trigger: `onWrite`
+ */
 export const mirrorCustomClaims = functions.firestore.document('user-claims/{uid}').onWrite(async (change, context) => {
     const beforeData: ClaimsDocumentData = change.before.data() || {}
     const afterData: ClaimsDocumentData = change.after.data() || {}
@@ -24,6 +29,12 @@ export const mirrorCustomClaims = functions.firestore.document('user-claims/{uid
         console.error("New custom claims object string > 1000 characters", stringifiedClaims)
         return
     }
+
+	/* 
+	 * Set admin privilege on the user corresponding to uid.
+	 * The new custom claims will propagate to the user's ID token the
+	 * next time a new one is issued.
+	 */
     const uid = context.params.uid
     console.log(`Setting custom claims for ${uid}`, newClaims)
     await auth.setCustomUserClaims(uid, newClaims)

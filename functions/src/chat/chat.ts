@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { QueryDocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import { db } from '../config';
-import { getProfileData } from './user';
+import { getUserData } from '../user/user';
 import { sendMessageNotification } from '../notification/notification';
 import { getOtherIDFromConversationID, getIDListFromConversationID } from './ConversationHelpers';
 
@@ -25,8 +25,8 @@ async function createConversationDocument(conversationID: string, message: any):
     const userIDs = getIDListFromConversationID(conversationID);
     const user1 = userIDs[0];
     const user2 = userIDs[1];
-    const userData1 = await getProfileData(user1);
-    const userData2 = await getProfileData(user2);
+    const userData1 = await getUserData(user1);
+    const userData2 = await getUserData(user2);
 
     const name1 =  userData1 ? userData1.firstName : '';
     const name2 =  userData2 ? userData2.firstName : '';

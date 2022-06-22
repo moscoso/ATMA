@@ -1,7 +1,7 @@
-import { stripe, stripeWebhookSignature, stripeCreateSubscriptionSignature } from '../config';
+import { stripe, stripeCreateSubscriptionSignature, stripeUpdatedSubscriptionSignature } from '../config';
 import * as functions from 'firebase-functions';
-import { updateSubscription, activateSubscription } from './subscriptions';
-import { createClient } from '../strengthrx/clients';
+import { updateSubscriptionData, createSubscriptionData } from './subscriptions';
+import { createMember } from '../member/member';
 import Stripe from 'stripe';
 
 /**
@@ -9,7 +9,7 @@ import Stripe from 'stripe';
  * https://dashboard.stripe.com/webhooks
  */
 
-export async function webhookHandler(data: any): Promise < FirebaseFirestore.WriteResult > {
+export async function subscriptionUpdatedHandler(data: any): Promise < FirebaseFirestore.WriteResult > {
     const customerID = data.customer;
     const subscriptionID = data.id;
     const customer = await stripe.customers.retrieve(customerID);
@@ -19,7 +19,7 @@ export async function webhookHandler(data: any): Promise < FirebaseFirestore.Wri
     } else {
         const userID = customer.metadata.firebaseUserID;
         const subscription = await stripe.subscriptions.retrieve(subscriptionID);
-        return updateSubscription(userID, subscription)
+        return updateSubscriptionData(userID, subscription)
     }
 }
 
@@ -34,7 +34,7 @@ export async function subscriptionCreatedHandler(data: any): Promise < FirebaseF
     } else {
         const userID = customer.metadata.firebaseUserID;
         const subscription = await stripe.subscriptions.retrieve(subscriptionID);
-        await createClient(userID, subscription);
+        await createMember(userID, subscription);
         let planID;
         try {
             planID = data && data[0] && data[0].price.id && data[0].price.id ? data[0].price.id : null;
@@ -42,7 +42,7 @@ export async function subscriptionCreatedHandler(data: any): Promise < FirebaseF
             planID = null;
         }
         if (subscription.id === null) { throw new Error(`Subscription plan was null`) }
-        return activateSubscription(userID, planID, subscription.id)
+        return createSubscriptionData(userID, planID, subscription.id)
     }
 }
 
@@ -71,19 +71,9 @@ function verifyStripeEvent(req: functions.https.Request, signature: string): Str
 
 /////// CLOUD FUNCTIONS ////////
 
-export const invoiceWebhookEndpoint = functions.https.onRequest(
-    async (req, res) => {
-        try {
-            const data = verifyStripeEvent(req, stripeWebhookSignature);
-            await webhookHandler(data);
-            res.sendStatus(200);
-        } catch (err) {
-            console.log(err);
-            res.status(400).send(err);
-        }
-    }
-);
-
+/**
+ * Webhook to create a subscription for a user's customer account
+ */
 export const subscriptionCreatedWebhook = functions.https.onRequest(
     async (req, res) => {
         console.log(`Subscription Created Invoked`);
@@ -96,7 +86,23 @@ export const subscriptionCreatedWebhook = functions.https.onRequest(
                 res.status(400).send(reason);
             });
         } catch (err) {
-            console.log(err);
+            console.error(err);
+            res.status(400).send(err);
+        }
+    }
+);
+
+/**
+ * Webhook to update a subscription for a user's customer account
+ */
+ export const subscriptionUpdatedWebhook = functions.https.onRequest(
+    async (req, res) => {
+        try {
+            const data = verifyStripeEvent(req, stripeUpdatedSubscriptionSignature);
+            await subscriptionUpdatedHandler(data);
+            res.sendStatus(200);
+        } catch (err) {
+            console.error(err);
             res.status(400).send(err);
         }
     }

@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { assert, assertUID, catchErrors } from '../helpers';
 import { stripe } from '../config';
-import { getOrCreateCustomer } from './customers';
+import { getOrCreateCustomerAccount } from './account';
 import { CallableContext } from 'firebase-functions/lib/providers/https';
 import Stripe from 'stripe';
 
@@ -11,7 +11,7 @@ import Stripe from 'stripe';
  * @returns a StripeSource object if the customer exists or undefined if the customer is deleted
  */
 export async function attachSource(userID: string, sourceID: string): Promise < StripeSource | undefined > {
-    const customer = await getOrCreateCustomer(userID);
+    const customer = await getOrCreateCustomerAccount(userID);
     if (customer.deleted) {
         return undefined;
     } else {
@@ -44,6 +44,8 @@ type StripeSource =
 
 /**
  * Attach a stripe source to the authorized User
+ * 
+ * Trigger: `onCall`
  */
 export const stripeAttachSource = functions.https.onCall(async (data, context: CallableContext) => {
     const userID = assertUID(context);

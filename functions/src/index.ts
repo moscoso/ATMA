@@ -1,15 +1,7 @@
-import * as functions from 'firebase-functions';
-import { CallableContext } from 'firebase-functions/lib/providers/https';
-
-export const testFunction = functions.https.onCall(async (data, context: CallableContext) => {
-    const uid = context.auth && context.auth.uid;
-    const message = data.message;
-
-    return `${uid} sent a message of ${message}`;
-});
-
-export * as stripe from './stripe/index';
-export { onCreatedCheckIn, onCreatedClient, onWrittenClient, onCreatedProgressPics, onCreatedReview, updateMembershipStatus } from './strengthrx/clients';
-export { createEntity } from './strengthrx/entity';
-export { onMessageCreated } from './strengthrx/chat';
-export { createUserAndProfile } from './strengthrx/user';
+/** CLOUD FUNCTIONS */ 
+export * from './chat';
+export * from './entity';
+export * from './member';
+export * as stripe from './stripe/index'; // Renaming the exports like this will prepend all cloud function names with "stripe-";
+export * from './test';
+export * from './user';

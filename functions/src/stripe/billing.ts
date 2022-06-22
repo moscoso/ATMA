@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import { assertUID, catchErrors } from '../helpers';
-import { getCustomerID } from './customers';
+import { getCustomerID } from './account';
 import { stripe } from '../config';
 import Stripe from 'stripe';
 
@@ -24,6 +24,11 @@ async function createBillingSession(userID: string, _returnURL?: string): Promis
 
 /////// CLOUD FUNCTIONS ////////
 
+/**
+ * Createa a customer portal session for the user to manage their billing
+ * 
+ * Trigger: `onCall`
+ */
 export const createBillingPortal = functions.https.onCall(async (_data, context) => {
     const userID = assertUID(context);
     return catchErrors(createBillingSession(userID));

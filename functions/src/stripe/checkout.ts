@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { stripe } from '../config';
 import Stripe from 'stripe';
-import { getOrCreateCustomer } from './customers';
+import { getOrCreateCustomerAccount } from './account';
 import { assertUID, catchErrors, assert } from '../helpers';
 
 /**
@@ -12,7 +12,7 @@ import { assertUID, catchErrors, assert } from '../helpers';
  * @returns a Stripe checkout session object
  */
 async function createCheckoutSession(userID: string, priceID: string, hostURL: string) {
-    const customer = await getOrCreateCustomer(userID);
+    const customer = await getOrCreateCustomerAccount(userID);
     const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = {
         'price': priceID,
         'quantity': 1
@@ -33,10 +33,15 @@ async function createCheckoutSession(userID: string, priceID: string, hostURL: s
 
 /////// CLOUD FUNCTIONS ////////
 
+/**
+ * Create a checkout session
+ * 
+ * 
+ */
 export const checkout = functions.https.onCall(async (data, context) => {
     const userID = assertUID(context);
     const priceID = assert(data, 'priceID')
 	// Optional
-    const hostURL = data.hostURL ? data.hostURL : 'https://strengthrx.pro';
+    const hostURL = data.hostURL ? data.hostURL : 'https://atma.church';
     return catchErrors(createCheckoutSession(userID, priceID, hostURL));
 });

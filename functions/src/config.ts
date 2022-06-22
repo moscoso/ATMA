@@ -19,12 +19,9 @@ export const messaging = getMessaging();
 // Initialize ENV Variables for Firebase Functions
 import * as functions from 'firebase-functions';
 export const stripeSecret = functions.config().stripe.secret;
-export const stripeWebhookSignature = functions.config().stripe.webhook_signature;
+export const stripeUpdatedSubscriptionSignature = functions.config().stripe.suss;
 export const stripeCreateSubscriptionSignature = functions.config().stripe.scss;
 
 // Initialize Stripe
 import Stripe from 'stripe';
 export const stripe = new Stripe(stripeSecret, {'apiVersion': '2020-08-27'});
-
-//Set Collection names
-export const STRIPE_COLLECTION = `accounts`;

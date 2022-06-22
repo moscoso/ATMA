@@ -1,10 +1,11 @@
 import * as functions from 'firebase-functions';
 import { assert, assertUID, catchErrors } from '../helpers';
-import { stripe, db, STRIPE_COLLECTION } from '../config';
+import { stripe, db } from '../config';
 import { attachSource } from './payment_sources';
 import Stripe from 'stripe';
-import { getOrCreateCustomer } from './customers';
-import { createClient } from '../strengthrx/clients';
+import { getOrCreateCustomerAccount } from './account';
+import { createMember } from '../member/member';
+import { STRIPE_COLLECTION_NAME } from '.';
 
 
 /**
@@ -13,7 +14,7 @@ import { createClient } from '../strengthrx/clients';
  * @param planID the ID corresponding to the Plan of the subscription. (https://stripe.com/docs/api/plans)
  * @param subscriptionID the ID corresponding to the Subscription instance belonging to this customer
  */
-export async function activateSubscription(userID: string, planID: string, subscriptionID: string): Promise<FirebaseFirestore.WriteResult> {
+export async function createSubscriptionData(userID: string, planID: string, subscriptionID: string): Promise<FirebaseFirestore.WriteResult> {
     const docData: { planID: string, subscriptionID: string, 'status': Stripe.Subscription
         .Status, 'created': Date } = {
             planID,
@@ -21,7 +22,7 @@ export async function activateSubscription(userID: string, planID: string, subsc
             'created': new Date(),
             'status': 'active'
         }
-    return db.doc(`${STRIPE_COLLECTION}/${userID}/subscriptions/${subscriptionID}`).set(docData, { merge: true });
+    return db.doc(`${STRIPE_COLLECTION_NAME}/${userID}/subscriptions/${subscriptionID}`).set(docData, { merge: true });
 }
 
 /**
@@ -29,9 +30,9 @@ export async function activateSubscription(userID: string, planID: string, subsc
  * @param userID the unique identifier corresponding to the user in Firebase
  * @param subscriptionID the ID corresponding to the Subscription instance belonging to this customer
  */
-export async function updateSubscription(userID: string, subscription: Stripe.Subscription): Promise<FirebaseFirestore.WriteResult> {
+export async function updateSubscriptionData(userID: string, subscription: Stripe.Subscription): Promise<FirebaseFirestore.WriteResult> {
     if (subscription.status === 'canceled') {
-        return deactivateSubscription(userID, subscription.id);
+        return deactivateSubscriptionData(userID, subscription.id);
     }
     const data = subscription.items.data;
     let planID; 
@@ -46,7 +47,7 @@ export async function updateSubscription(userID: string, subscription: Stripe.Su
         'cancel_at': subscription.cancel_at,
         'status': subscription.status
     }
-    return db.doc(`${STRIPE_COLLECTION}/${userID}/subscriptions/${subscription.id}`).set(docData, { merge: true });
+    return db.doc(`${STRIPE_COLLECTION_NAME}/${userID}/subscriptions/${subscription.id}`).set(docData, { merge: true });
 }
 
 /**
@@ -54,12 +55,12 @@ export async function updateSubscription(userID: string, subscription: Stripe.Su
  * @param userID the unique identifier corresponding to the user in Firebase
  * @param subscriptionID the ID corresponding to the Subscription instance belonging to this customer
  */
-async function deactivateSubscription(userID: string, subscriptionID: string): Promise<FirebaseFirestore.WriteResult> {
+async function deactivateSubscriptionData(userID: string, subscriptionID: string): Promise<FirebaseFirestore.WriteResult> {
     const docData: { 'status': Stripe.Subscription.Status, 'canceled': Date } = {
         'status': 'canceled',
         'canceled': new Date()
     }
-    return db.doc(`${STRIPE_COLLECTION}/${userID}/subscriptions/${subscriptionID}`).set(docData, { merge: true });
+    return db.doc(`${STRIPE_COLLECTION_NAME}/${userID}/subscriptions/${subscriptionID}`).set(docData, { merge: true });
 }
 
 
@@ -68,7 +69,7 @@ async function deactivateSubscription(userID: string, subscriptionID: string): P
  * @param userID the unique identifier corresponding to the user in Firebase
  */
 export async function listSubscriptions(userID: string): Promise < Stripe.ApiList < Stripe.Subscription >> {
-    const customer = await getOrCreateCustomer(userID);
+    const customer = await getOrCreateCustomerAccount(userID);
     return stripe.subscriptions.list({ 'customer': customer.id });
 }
 
@@ -81,7 +82,7 @@ export async function listSubscriptions(userID: string): Promise < Stripe.ApiLis
  */
 export async function createSubscription(userID: string, source: string, plan: string, coupon ? : string): Promise <
     Stripe.Subscription > {
-        const customer = await getOrCreateCustomer(userID);
+        const customer = await getOrCreateCustomerAccount(userID);
         await attachSource(userID, source);
         const subscription: Stripe.Subscription = await stripe.subscriptions.create({
             customer: customer.id,
@@ -90,22 +91,27 @@ export async function createSubscription(userID: string, source: string, plan: s
                 plan
             } ]
         });
-        await createClient(userID, subscription);
-        await activateSubscription(userID, plan, subscription.id);
+        await createMember(userID, subscription);
+        await createSubscriptionData(userID, plan, subscription.id);
         return subscription;
     }
 
 /**
  * Cancels a subscription immediately and stops all recurring payments
  */
-export async function deleteSubscription(userID: string, subID: string): Promise < any > {
+export async function stopSubscription(userID: string, subID: string): Promise<Stripe.Response<Stripe.Subscription>>{
     const subscription = await stripe.subscriptions.del(subID);
-    await deactivateSubscription(userID, subscription.id);
+    await deactivateSubscriptionData(userID, subscription.id);
     return subscription;
 }
 
 /////// CLOUD FUNCTIONS ////////
 
+/**
+ * Create a subscription
+ * 
+ * Trigger: `onCall`
+ */
 export const startSubscription = functions.https.onCall(async (data, context) => {
     const uid = assertUID(context);
     const source = assert(data, 'source');
@@ -113,12 +119,22 @@ export const startSubscription = functions.https.onCall(async (data, context) =>
     return catchErrors(createSubscription(uid, source, plan, data.coupon));
 });
 
+/**
+ * Cancel a subscription
+ * 
+ * Trigger: `onCall`
+ */
 export const cancelSubscription = functions.https.onCall(async (data, context) => {
     const uid = assertUID(context);
     const plan = assert(data, 'plan');
-    return catchErrors(deleteSubscription(uid, plan));
+    return catchErrors(stopSubscription(uid, plan));
 });
 
+/**
+ * List all subscriptions for a user
+ * 
+ * Trigger: `onCall`
+ */
 export const getSubscriptions = functions.https.onCall(async (_data, context) => {
     const uid = assertUID(context);
     return catchErrors(listSubscriptions(uid));
