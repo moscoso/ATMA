@@ -32,12 +32,13 @@ export class EventListComponent implements OnInit {
         // effect: 'coverflow',
         loop: true,
         grabCursor: true,
+		slideToClickedSlide: true,
         coverflowEffect: {
             'slideShadows': false,
         },
         cubeEffect: {
             'slideShadows': false,
-            'shadow': true
+            'shadow': false
         }
     }
 
