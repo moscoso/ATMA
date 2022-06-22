@@ -42,7 +42,7 @@
 
 		<ng-container *ngIf="filteredEventList.length > 0; else noMatches">
 			<swiper [config]="swiperConfig" effect="coverflow" (slideChange)="onSlideChange()" [effect]="effect"
-					[slidesPerView]="filteredEventList.length >= 3 ? 3 : filteredEventList.length">
+					[slidesPerView]="calculateSlides()">
 
 				<ng-container *ngFor="let event of filteredEventList">
 					<div class="swiper-wrapper">

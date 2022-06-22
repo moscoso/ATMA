@@ -1,19 +1,21 @@
 import Fuse from 'fuse.js';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
+import { combineLatest, Observable, of , Subject } from 'rxjs';
 import { first, startWith } from 'rxjs/operators';
 import { AtmaEventFacade } from 'src/app/core/state/event/event.facade';
 import { AtmaEvent } from 'src/app/core/state/event/event.model';
 import {
-    HighlightIndicesMap, removeIndicesThatAreTypos
+    HighlightIndicesMap,
+    removeIndicesThatAreTypos
 } from 'src/app/pipes/highlight-search.pipe';
 import SwiperCore, { EffectCoverflow, EffectCube, SwiperOptions } from 'swiper';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CreateEventComponent } from '../create-event/create-event.component';
 
 SwiperCore.use([EffectCoverflow, EffectCube]);
 @UntilDestroy()
+@HostListener('window:resize', ['$event'])
 @Component({
     selector: 'atma-event-list',
     templateUrl: './event-list.component.html',
@@ -39,7 +41,9 @@ export class EventListComponent implements OnInit {
         }
     }
 
-    effect = 'coverflow'
+    effect = 'coverflow';
+
+	innerWidth: number;
 
     constructor(
         public modalController: ModalController,
@@ -48,6 +52,13 @@ export class EventListComponent implements OnInit {
 
     ngOnInit(): void {
         this.initList();
+
+		this.innerWidth = window.innerWidth;
+
+		window.onresize = (e) => {
+			this.innerWidth = window.innerWidth;
+			this.calculateSlides()
+		}
     }
 
     async initList() {
@@ -61,6 +72,15 @@ export class EventListComponent implements OnInit {
         this.filteredEventList = await this.events$.pipe(first(events => events.length > 0))
             .toPromise();
     }
+
+	calculateSlides() {
+		if(this.innerWidth <= 700) {
+			return 1;
+		}
+
+		const suggestion = this.filteredEventList.length >= 3 ? 3 : this.filteredEventList.length;
+		return suggestion;
+	}
 
     refresh(): void {
         this.eventService.refreshAll();
