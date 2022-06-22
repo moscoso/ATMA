@@ -45,7 +45,8 @@
                             </mat-error>
                         </mat-form-field>
                     </ion-row>
-                    <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid">Login</ion-button>
+                    <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid || true">Login</ion-button>
+					<mat-error>The team is aware of an issue with accounts. Logins are disabled while the team works on a fix. Please check back later today. Thank you for your patience.</mat-error>
 					<div class="tip">Need an account? <a routerLink="/signup">Register</a></div>
                 </form>
             </ion-col>

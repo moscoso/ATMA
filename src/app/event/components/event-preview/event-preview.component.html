@@ -1,15 +1,24 @@
-<ion-card tilt>
+<ion-card>
+	<div class="date">
+		<span class="binds"></span>
+		<span class="month">{{getMonthName(event.startDate.getMonth())}}</span>
+		<h1 class="day">{{event.startDate.getDate()}}</h1>
+	</div>
     <ng-container *ngIf="event.thumbnail else noVideoURL">
-        <img [src]="event.thumbnail"/>
+        <img [src]="event.thumbnail" />
     </ng-container>
     <ng-template #noVideoURL>
-        <ion-note>No thumbnail ⚠️</ion-note>
+        <img src="assets/icon/icon.png" />
     </ng-template>
     <ion-card-header>
         <ion-card-title class="name" [innerHtml]="event.name | highlight: highlights"></ion-card-title>
-        <div class="ion-text-center" *ngIf="!event.description || (event.description && event.description.length === 0)">
-            <ion-note>No instructions ⚠️</ion-note>
-        </div>
-        <ion-card-subtitle>{{notes}}</ion-card-subtitle>
+		<ion-card-subtitle class="time">{{getDayName(event.startDate.getDay())}}</ion-card-subtitle>   
+        <ion-card-subtitle class="time">{{event.startDate.toLocaleDateString()}} {{event.startTime}}-{{event.endTime}}</ion-card-subtitle>   
     </ion-card-header>
+	<ion-card-content>
+		<ion-card-subtitle>
+            <ion-textarea>{{(event.description.length < 100) ? event.description : event.description.slice(0, 100) + "..."}}</ion-textarea>
+        </ion-card-subtitle>
+        <ion-button [routerLink]="'/events/' + event.id">Learn More</ion-button>
+	</ion-card-content>
 </ion-card>

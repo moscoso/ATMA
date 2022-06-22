@@ -1,4 +1,5 @@
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -12,18 +13,19 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 const modules = [
+	NgxMaterialTimepickerModule,
+    DragDropModule,
+	ClipboardModule,
     MatCheckboxModule,
-    MatInputModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    DragDropModule,
+    MatInputModule,
     MatMenuModule,
-	NgxMaterialTimepickerModule
+    MatNativeDateModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatSelectModule,
 ];
 
 @NgModule({

@@ -1,20 +1,20 @@
 <ion-content>
     <ion-header #header>
         <ion-toolbar class="ion-text-center">
-			<ion-buttons slot="start">
-				<ion-menu-button></ion-menu-button>
-			</ion-buttons>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
             <h1 class="header">ĀTMA Church</h1>
         </ion-toolbar>
     </ion-header>
 
-    <ion-grid id="leaders">
+    <ion-grid id="landing">
         <ion-row class="ion-text-center">
             <ion-col sizeSm="4" sizeXs="12" animateOnScroll animationName="animated fadeIn">
-				<br><br>
-				<img src="/assets/icon/black.svg" tilt />
+                <br><br>
+                <img src="/assets/icon/black.svg" tilt />
             </ion-col>
-            <ion-col sizeSm="8" sizeXs="12">
+            <ion-col sizeSm="8" sizeXs="12" class="rgb">
                 <video loop
                        playsinline="playsinline" autoplay="autoplay" preload="auto" [muted]="'muted'" disablePictureInPicture
                        controlslist="nodownload nofullscreen">
@@ -32,17 +32,17 @@
         </ion-row>
     </ion-grid>
 
-	<section id="space" class="cool-bg">
-		<ion-row>
-			<ion-col sizeXl="4" sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
-				<img class="rounded-8 wow slideInLeft"  src="assets/img/meditate.png" animateOnScroll animationName="animated fadeIn" />
-			</ion-col>
-			<ion-col sizeXl="4" sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12" pushXl="4">
-				<img class="rounded-8" src="assets/img/pool.png" animateOnScroll animationName="animated fadeIn" />
-			</ion-col>
-			<ion-col sizeXl="4" sizeLg="12" sizeMd="12" sizeSm="12" sizeXs="12" pullXl="4">
-				<p class="quote" *ngIf="typeLevel >= 0">
-					<ngx-typed-js [strings]="[
+    <section id="space" class="cool-bg">
+        <ion-row>
+            <ion-col sizeXl="4" sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
+                <img class="rounded-8 wow slideInLeft" src="assets/img/meditate.png" animateOnScroll animationName="animated fadeIn" />
+            </ion-col>
+            <ion-col sizeXl="4" sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12" pushXl="4">
+                <img class="rounded-8" src="assets/img/pool.png" animateOnScroll animationName="animated fadeIn" />
+            </ion-col>
+            <ion-col sizeXl="4" sizeLg="12" sizeMd="12" sizeSm="12" sizeXs="12" pullXl="4">
+                <p class="quote" *ngIf="typeLevel >= 0">
+                    <ngx-typed-js [strings]="[
 						'“It is written on the gate of heaven: ', 
 						'“It is written on the gate of heaven: ', 
 						'“It is written on the gate of heaven: Nothing in existence is more powerful than destiny. ',
@@ -60,65 +60,36 @@
 						'“It is written on the gate of heaven: Nothing in existence is more powerful than destiny. And destiny brought you here, to this page, which is part of your ticket  -as all things are- to return to God.” ― Hafiz',
 						'“It is written on the gate of heaven: Nothing in existence is more powerful than destiny. And destiny brought you here, to this page, which is part of your ticket  -as all things are- to return to God.” ― Hafiz',
 					]" [loop]="true" [smartBackspace]="true" [startDelay]="1500">
-					<span class="typing"></span>
-					</ngx-typed-js>
-				</p>
-			</ion-col>
-			
-		</ion-row>
-	</section>
+                        <span class="typing"></span>
+                    </ngx-typed-js>
+                </p>
+            </ion-col>
+
+        </ion-row>
+    </section>
 
     <section id="events" #events>
         <h1 class="animated" animateOnScroll animationName="animated fadeIn">Events</h1>
-        <ion-col [hidden]="(isAuthenticated$ | async) === true">
-            <h3>Sign up to stay in the loop with our upcoming events!</h3>
-            <join-form (formSubmit)="onSubmit($event)"></join-form>
-        </ion-col>
+        <h2>Check out our upcoming events</h2>
 
-		<!-- <atma-event-preview>
-
-		</atma-event-preview> -->
-        <ion-col [hidden]="(isAuthenticated$ | async) === false">
-            <h3>Hi {{name}}, check out the events we got going on</h3>
-            <a class="logout-btn" (click)="logout()">Click here to log out</a>
-        </ion-col>
-
-        <ion-row>
-            <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12" *ngFor="let e of atmaEvents; let i = index;" tilt>
-                <ion-card-header>
-                    <ion-card-title>{{e.title}}</ion-card-title>
-                    <ion-card-subtitle>{{e.subtitle}}</ion-card-subtitle>
-                </ion-card-header>
-
-                <ion-card-content>
-                    <div class="date">
-                        <span class="binds"></span>
-                        <span class="month">{{e.month}}</span>
-                        <h1 class="day">{{e.day}}</h1>
-                    </div>
-                    <ion-img id="event-image-i" [src]="e.image" class="event-thumb not-loaded" (ionImgDidLoad)="woah($event)"></ion-img>
-                    <p>{{e.preview}}</p>
-                    <ion-button [id]="'event-' + i + '-button'">Read More</ion-button>
-                    <ion-modal [trigger]="'event-' + i + '-button'" [canDismiss]="true">
-                        <ng-template>
-                            <ion-content>
-                                <h1>{{e.title}}</h1>
-                                <p class="description">{{e.description}}</p>
-                                <ion-button expand="full" (click)="closeModal()">Close</ion-button>
-                            </ion-content>
-                        </ng-template>
-                    </ion-modal>
-                </ion-card-content>
-            </ion-col>
+        <atma-event-list></atma-event-list>
+    </section>
+	<section>
+		<h1>Map</h1>
+		<h2>7412 Albert Rd, Austin, TX 78745 </h2>
+		
+		<ion-row>
+			<ion-button size="small" cdkCopyToClipboard="7412 Albert Rd, Austin, TX 78745"><ion-icon name="copy-outline"></ion-icon>Copy address</ion-button>
+			<br>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3448.496188519929!2d-97.80488869999999!3d30.194382599999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865b4ca2fa0dc2ef%3A0x2d76d7655141234f!2s7412%20Albert%20Rd%2C%20Austin%2C%20TX%2078745!5e0!3m2!1sen!2sus!4v1655901224144!5m2!1sen!2sus"
+                    width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
         </ion-row>
-        <ion-col [hidden]="(isAuthenticated$ | async) === true">
-            <h3>Sign up to stay in the loop with our upcoming events!</h3>
-            <join-form (formSubmit)="onSubmit($event)"></join-form>
-        </ion-col>
-        <ion-row>
+
+		<ion-row>
             <p class="footer">© ĀTMA 2022 | All Right Reserved | Developed & Powered by Chris Moscoso
                 <!-- <a href="http://chrismoscoso.com"> Chris Moscoso</a> -->
             </p>
         </ion-row>
-    </section>
+	</section>
 </ion-content>

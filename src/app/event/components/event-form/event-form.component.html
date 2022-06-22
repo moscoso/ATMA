@@ -22,7 +22,7 @@
         </ion-row>
 
         <ion-row>
-            <ion-col>
+            <ion-col sizeXl="3" sizeLg="3" sizeMd="3" sizeSm="3" sizeXs="6">
                 <mat-form-field appearance="fill">
                     <mat-label>Start date</mat-label>
                     <input matInput [formControl]="startDate" [matDatepicker]="startDatePicker" autocomplete="off" placeholder="03/31/1999">
@@ -31,28 +31,28 @@
                     <mat-datepicker #startDatePicker></mat-datepicker>
                 </mat-form-field>
             </ion-col>
-            <ion-col>
+            <ion-col sizeXl="3" sizeLg="3" sizeMd="3" sizeSm="3" sizeXs="6">
                 <mat-form-field>
                     <mat-label for='name'>Start Time</mat-label>
-                    <input matInput [ngxTimepicker]="startTimePicker" disableClick="true" placeholder="11:11 AM">
+                    <input matInput [formControl]="startTime" [ngxTimepicker]="startTimePicker" autocomplete="off" placeholder="11:11 AM" disableClick="true">
 					<mat-hint>HH:MM PM</mat-hint>
                     <ngx-material-timepicker-toggle matSuffix [for]="startTimePicker"></ngx-material-timepicker-toggle>
                     <ngx-material-timepicker #startTimePicker [enableKeyboardInput]="true" editableHintTmpl="" ESC="true"></ngx-material-timepicker>
                 </mat-form-field>
             </ion-col>
-            <ion-col>
+            <ion-col sizeXl="3" sizeLg="3" sizeMd="3" sizeSm="3" sizeXs="6">
                 <mat-form-field appearance="fill">
                     <mat-label>End date</mat-label>
-                    <input matInput [matDatepicker]="endDatePicker" autocomplete="off" placeholder="03/31/1999">
+                    <input matInput [formControl]="endDate" [matDatepicker]="endDatePicker" autocomplete="off" placeholder="03/31/1999">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #endDatePicker></mat-datepicker>
                 </mat-form-field>
             </ion-col>
-            <ion-col>
+            <ion-col sizeXl="3" sizeLg="3" sizeMd="3" sizeSm="3" sizeXs="6">
                 <mat-form-field>
                     <mat-label for='name'>End Time</mat-label>
-                    <input matInput [ngxTimepicker]="endTimePicker" disableClick="true" placeholder="11:11 AM">
+                    <input matInput [formControl]="endTime" [ngxTimepicker]="endTimePicker" autocomplete="off" placeholder="11:11 AM" disableClick="true">
 					<mat-hint>HH:MM PM</mat-hint>
                     <ngx-material-timepicker-toggle matSuffix [for]="endTimePicker"></ngx-material-timepicker-toggle>
                     <ngx-material-timepicker #endTimePicker [enableKeyboardInput]="true" editableHintTmpl="" ESC="true"></ngx-material-timepicker>
@@ -93,7 +93,7 @@
             <mat-form-field>
                 <mat-label for="eventbriteURL">Eventbrite URL<ion-icon name="ticket-outline"></ion-icon>
                 </mat-label>
-                <input matInput type="url" [formControl]="facebookURL" name="eventbriteURL"
+                <input matInput type="url" [formControl]="eventbriteURL" name="eventbriteURL"
                        placeholder="https://www.eventbrite.com/"
                        autocomplete="off"
                        enterKeyHint="done">

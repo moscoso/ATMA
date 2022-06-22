@@ -22,35 +22,7 @@
         <ion-spinner></ion-spinner>
     </div>
 
-    <ion-searchbar (ionChange)='search($event)' autocorrect="off" [hidden]="(events$ | async).length <= 1">
-    </ion-searchbar>
- 
-    <entity-list-refresher [entityService]="eventService"></entity-list-refresher>
+	<entity-list-refresher [entityService]="eventService"></entity-list-refresher>
 
-    <ion-grid *ngIf="(events$ | async).length > 0; else noEvents;">
-        <ion-row>
-            <ng-container *ngIf="filteredEventList.length > 0; else noMatches">
-                <ion-col *ngFor="let event of filteredEventList" sizeLg="3" sizeMd="4" sizeSm="6" sizeXs="12">
-                    <atma-event-preview [routerLink]="'/events/' + event.id" [event]="event"
-                                      [highlights]="highlights[event.id]" tilt>
-                    </atma-event-preview>
-                </ion-col>
-            </ng-container>
-            <ng-template #noMatches>
-                <ion-card>
-                    <ion-card-header>Nothing matched that search term</ion-card-header>
-                </ion-card>
-            </ng-template>
-        </ion-row>
-    </ion-grid>
-    <ng-template #noEvents>
-        <ion-row *ngIf="(requestInProgress$ | async) === false">
-            <ion-card>
-                <ion-card-header>No events found! Create one!</ion-card-header>
-                <ion-card-content>
-                    <ion-button (click)="presentModal()"><ion-icon name="add"></ion-icon>Create new event</ion-button>
-                </ion-card-content>
-            </ion-card>
-        </ion-row>
-    </ng-template>
+	<atma-event-list></atma-event-list>
 </ion-content>

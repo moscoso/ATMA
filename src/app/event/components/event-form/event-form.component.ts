@@ -60,8 +60,8 @@ export class EventFormComponent implements OnInit {
             'name': this.name,
 			'description': this.description,
 			'startDate': this.startDate,
-			'endDate': this.endDate,
 			'startTime': this.startTime,
+			'endDate': this.endDate,
 			'endTime': this.endTime,
             'facebookURL': this.facebookURL,
             'eventbriteURL': this.eventbriteURL,
@@ -75,6 +75,11 @@ export class EventFormComponent implements OnInit {
     initFormValues(event: AtmaEvent) {
         this.defaultValue = event;
         this.name.setValue(event.name);
+		this.description.setValue(event.description);
+		this.startDate.setValue(event.startDate);
+		this.startTime.setValue(event.startTime);
+		this.endDate.setValue(event.endDate);
+		this.endTime.setValue(event.endTime);
         this.facebookURL.setValue(event.facebookURL);
         this.eventbriteURL.setValue(event.eventbriteURL);
 		this.thumbnail.setValue(event.thumbnail);
@@ -83,6 +88,7 @@ export class EventFormComponent implements OnInit {
     onSubmit(_form) {
         try {
             const values = this.createEventFromForm();
+			console.log(values);
             if  (this.defaultValue === undefined ) {
                 this.formSubmit.emit(values);
              } else {

@@ -201,16 +201,6 @@ export class AppComponent implements OnInit, AfterContentInit {
         this.isAuthenticated$ = this.authService.selectAuthenticated();
         this.url$ = this.routerService.selectURL();
 
-		this.serviceWorkerUpdate.checkForUpdate().then(updateAvailable => {
-			if(updateAvailable) {
-				this.toastService.primary("New update available");
-			} else {
-				this.toastService.primary("You are already up to date");
-			}
-		}).catch(reason => {
-			this.toastService.failed("Failed to check for update", reason)
-		});
-
 		const activateUpdate = () => this.serviceWorkerUpdate.activateUpdate().then((updated) => {
 			if(updated) {
 				this.toastService.success("New Version Activated!");
@@ -221,10 +211,7 @@ export class AppComponent implements OnInit, AfterContentInit {
 			this.toastService.failed("Failed to update", reason)
 		});
 
-		activateUpdate();
-
 		this.serviceWorkerUpdate.versionUpdates.subscribe((x) => {
-			console.log(x);
 			this.toastService.ask("New version available.", " Load New Version?", activateUpdate, "Update");
 		});
 
@@ -238,6 +225,22 @@ export class AppComponent implements OnInit, AfterContentInit {
 			map(e => (e instanceof NavigationStart)),
 		)
     }
+
+	checkForUpdate() {
+		this.serviceWorkerUpdate.checkForUpdate().then(updateAvailable => {
+			if(updateAvailable) {
+				this.toastService.primary("New update available");
+			} else {
+				this.toastService.primary("You are already up to date");
+			}
+		}).catch(reason => {
+			this.toastService.failed("Failed to check for update", reason)
+		});
+	}
+
+	activateUpdate() {
+
+	}
 
 	ngAfterContentInit(): void {
 		this.contentReady$.next(true);

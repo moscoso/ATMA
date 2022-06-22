@@ -71,8 +71,10 @@
                     <mat-error *ngIf="form.hasError('passwordMismatch') && password.dirty && confirmPassword.dirty">The passwords do not
                         match
                     </mat-error>
-                    <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid">Register</ion-button>
+                    <ion-button expand="full" shape="round" type="submit" [disabled]="form.invalid || true">Register</ion-button>
+					<mat-error>The team is aware of an issue with accounts. Registrations are disabled while the team works on a fix. Please check back later today. Thank you for your patience.</mat-error>
 					<div class="tip"><a routerLink="/login">Already have an account?</a></div>
+					
                 </form>
             </ion-col>
 			<ion-col sizeMd="4" class="ion-hide-md-up">

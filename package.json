@@ -57,6 +57,7 @@
     "ngx-countdown": "^13.0.0",
     "ngx-file-drop": "^13.0.0",
     "ngx-material-timepicker": "^5.5.3",
+    "ngx-swiper-wrapper": "^10.0.0",
     "ngx-typed-js": "^2.1.1",
     "rxjs": "~6.6.3",
     "scroll-behavior-polyfill": "^2.0.13",
@@ -100,6 +101,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
+    "swiper": "^6.4.15",
     "ts-node": "~7.0.0",
     "typescript": "~4.5.4"
   },

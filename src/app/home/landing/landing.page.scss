@@ -20,17 +20,19 @@
 	video {
 		width: 100%;
 		height: 100%;
+		border-radius: 25px;
 	}
 
     .menu-label {
         font-size: 24px;
     }
 
-    #leaders {
+    #landing {
         position: relative;
         background-size: cover;
         color: black;
 		margin-top:55px;
+		// min-height: 95vh;
     }
 
 
@@ -151,48 +153,6 @@
 			color: white;
 		}
     }
-
-	.date {
-		display: block;
-		width: 100px;
-		background: #fff;
-		text-align: center;
-		font-family: 'Helvetica', sans-serif;
-		position: absolute;
-	}
-	
-	.date .binds {
-		position: absolute;
-		height: 15px;
-		width: 60px;
-		background: transparent;
-		border: 2px solid rgb(243, 227, 4);
-		border-width: 0 5px;
-		top: -6px;
-		left: 0;
-		right: 0;
-		margin: auto;
-	}
-	
-	.date .month {
-		background: #ff1493;
-		display: block;
-		padding: 8px 0;
-		color: #fff;
-		font-size: 12px;
-		font-weight: bold;
-		border-bottom: 2px solid #ff1493;
-		box-shadow: inset 0 -1px 0 0 #ff1493;
-	}
-	
-	.date .day {
-		display: block;
-		margin: 0;
-		padding: 10px 0;
-		font-size: 48px;
-		box-shadow: 0 0 3px #ccc;
-		position: relative;
-	}
 	
 	h3 {
 		text-align: center;

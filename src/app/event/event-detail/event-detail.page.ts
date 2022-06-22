@@ -79,4 +79,8 @@ export class EventDetailPage implements OnInit {
         this.eventService.delete(exercise.id);
     }
 
+	getDayName(day: number) {
+		const dayNames = ["Sunday","Monday", "Tuesday", "Wenesday", "Thursay", "Friday", "Saturday"];
+		return dayNames[day];
+	}
 }

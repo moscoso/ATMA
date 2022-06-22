@@ -8,6 +8,9 @@ export interface AtmaEvent {
     description: string;
 	thumbnail: URL | null;
 	startDate: Date;
+	startTime: string;
+	endDate: Date;
+	endTime: string;
 	name: string;
 }
 
@@ -18,5 +21,8 @@ export const ATMA_EVENT_INIT_MODEL: AtmaEvent = {
     'description': 'description',
 	'thumbnail': null,
 	'startDate': new Date(),
+	'startTime': "",
+	'endDate': new Date(),
+	'endTime': "",
 	'name': 'untitled',
 };
