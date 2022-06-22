@@ -238,19 +238,20 @@ export class AppComponent implements OnInit, AfterContentInit {
 		)
     }
 
-	checkForUpdate(loud = false) {
+	async checkForUpdate(loud = false) {
+
 		if(loud){
-			this.toastService.primary("Checking for updates", 2000);
+			await this.toastService.primary("Checking for updates", {"id": "service-worker-update", "position": "top", "translucent": true });
 		}
 		
 		this.serviceWorkerUpdate.checkForUpdate().then((updateAvailable) => {
 			if(!updateAvailable && loud) {
-				this.toastService.success("You are already up to date!");
+				this.toastService.success("You are already up to date!", {"id": "service-worker-update" });
 			}
 			console.log("checkForUpdate returned", updateAvailable);
 		}).catch(reason => {
 			if(loud) {
-				this.toastService.failed("checkForUpdate failed:", reason.message)
+				this.toastService.failed("checkForUpdate failed:", reason.message, {"id": "service-worker-update" })
 			}
 			console.error("checkForUpdate failed:", reason);
 		});
