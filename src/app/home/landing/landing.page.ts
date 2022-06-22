@@ -89,9 +89,10 @@ export class LandingPage implements OnInit {
     }
 
 	public woah(event) {
-		console.log(event);
 		const target: HTMLElement = event.target || event.srcElement ||event.currentTarget;
 		this.renderer2.removeClass(target, "not-loaded");
+		this.renderer2.addClass(target, "animated");
+		this.renderer2.addClass(target, "");
 	}
 
     scrollPage(s: string) {
