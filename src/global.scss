@@ -184,3 +184,8 @@ img.rounded-8 {
         background-position: 0% 50%;
     }
 }
+
+
+section.notched {
+	clip-path: polygon(0 0,30% 0,calc(30% + 96px) 28px,calc(70% - 96px) 28px,70% 0,100% 0,100% 100%,0 100%);
+}
