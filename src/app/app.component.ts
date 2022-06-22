@@ -1,13 +1,13 @@
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval, Observable, of, timer } from 'rxjs';
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
+import { SwUpdate  } from '@angular/service-worker';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthFacade } from './core/state/auth/auth.facade';
 import { ProfileFacade } from './core/state/profile/profile.facade';
 import { RouterStoreDispatcher } from './core/state/router/router.dispatcher';
 import { MenuItem } from './shared/menu-list/menu-list.component';
 import { ToastService } from './shared/toast/toast.service';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @UntilDestroy()
@@ -194,6 +194,11 @@ export class AppComponent implements OnInit, AfterContentInit {
 			document.getElementById("rootPreloader").className = 'preloader animate__animated animate__fadeOut disabled';
 		});		
 
+		this.checkForUpdate();
+
+		interval(60000).subscribe(() => {
+			this.checkForUpdate();
+		});
 		
     }
 
@@ -202,17 +207,24 @@ export class AppComponent implements OnInit, AfterContentInit {
         this.url$ = this.routerService.selectURL();
 
 		const activateUpdate = () => this.serviceWorkerUpdate.activateUpdate().then((updated) => {
-			if(updated) {
-				this.toastService.success("New Version Activated!");
-			} else {
-				this.toastService.primary("You are already up to date");
-			}
+			console.log("activateUpdate returned", updated);
 		}).catch(reason => {
-			this.toastService.failed("Failed to update", reason)
+			console.error("activateUpdate failed:", reason);
 		});
 
-		this.serviceWorkerUpdate.versionUpdates.subscribe((x) => {
-			this.toastService.ask("New version available.", " Load New Version?", activateUpdate, "Update");
+		this.serviceWorkerUpdate.versionUpdates.subscribe((versionUpdate) => {
+			switch (versionUpdate.type) {
+				case "VERSION_DETECTED":
+					this.toastService.ask(`New version available (${versionUpdate.version.hash})`, " Load New Version?", activateUpdate, "Update");
+					return;
+				case "VERSION_INSTALLATION_FAILED":
+					this.toastService.failed("Failed to update", versionUpdate.error);
+					return;
+				case "VERSION_READY": 
+					this.toastService.success("New Version Activated!");
+					window.location.reload();
+					return;
+			}
 		});
 
 		this.routeLoading$ = this.router.events.pipe(
@@ -226,20 +238,22 @@ export class AppComponent implements OnInit, AfterContentInit {
 		)
     }
 
-	checkForUpdate() {
-		this.serviceWorkerUpdate.checkForUpdate().then(updateAvailable => {
-			if(updateAvailable) {
-				this.toastService.primary("New update available");
-			} else {
-				this.toastService.primary("You are already up to date");
+	checkForUpdate(loud = false) {
+		if(loud){
+			this.toastService.primary("Checking for updates", 2000);
+		}
+		
+		this.serviceWorkerUpdate.checkForUpdate().then((updateAvailable) => {
+			if(!updateAvailable && loud) {
+				this.toastService.success("You are already up to date!");
 			}
+			console.log("checkForUpdate returned", updateAvailable);
 		}).catch(reason => {
-			this.toastService.failed("Failed to check for update", reason)
+			if(loud) {
+				this.toastService.failed("checkForUpdate failed:", reason.message)
+			}
+			console.error("checkForUpdate failed:", reason);
 		});
-	}
-
-	activateUpdate() {
-
 	}
 
 	ngAfterContentInit(): void {
