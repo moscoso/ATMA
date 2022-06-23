@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RegisterPageRoutingModule } from './register-routing.module';
-import { MaterialsModule } from 'src/app/materials.module';
 import { RegisterPage } from './register.page';
+import { MaterialsModule } from 'src/app/materials.module';
 
 @NgModule({
     'imports': [

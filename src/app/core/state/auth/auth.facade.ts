@@ -42,6 +42,8 @@ export class AuthFacade {
             .collection('user-claims')
             .doc(user.uid)
             .snapshotChanges().subscribe((snapshot) => {
+				if(typeof (snapshot as any).data !== "function") return;
+
                 const data = (snapshot as any).data()
                 console.log('New claims doc\n', data)
                 if (data._lastCommitted) {

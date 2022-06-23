@@ -56,7 +56,7 @@ export class EventListComponent implements OnInit {
 
 		this.innerWidth = window.innerWidth;
 
-		window.onresize = (e) => {
+		window.onresize = (_e) => {
 			this.innerWidth = window.innerWidth;
 			this.calculateSlides()
 		}
@@ -79,8 +79,8 @@ export class EventListComponent implements OnInit {
 			return 1;
 		}
 
-		const suggestion = this.filteredEventList.length >= 3 ? 3 : this.filteredEventList.length;
-		return suggestion;
+		const IDEAL_SLIDES_IN_VIEW = 3;
+		return this.filteredEventList.length >= IDEAL_SLIDES_IN_VIEW ? IDEAL_SLIDES_IN_VIEW : this.filteredEventList.length;
 	}
 
     refresh(): void {
@@ -136,7 +136,7 @@ export class EventListComponent implements OnInit {
         return highlights;
     }
 
-    onSwiper([swiper]) {
+    onSwiper([_swiper]) {
         // console.log(swiper);
     }
 

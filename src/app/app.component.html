@@ -1,10 +1,7 @@
 <ion-app>
 	
-	<!-- <ion-router-outlet id="main-content"></ion-router-outlet> -->
-
-
-
-    <ion-split-pane contentId="main-content" [disabled]="['/', '/signup', '/login'].includes(url$ | async)">
+	<ion-router-outlet id="main-content"></ion-router-outlet>
+    <!-- <ion-split-pane contentId="main-content" [disabled]="['/', '/signup', '/login'].includes(url$ | async)">
 	
 		<div class="preloader" *ngIf="(routeLoading$ | async) === true">
 			<div></div>
@@ -22,7 +19,7 @@
 					<menu-list [items]="atmaPages"></menu-list>
                     <!-- <menu-list [items]="trainerFeatures" *ngIf="(url$ | async) !== '/' && (isAuthenticated$ | async) && (iAmTrainer$ | async)"></menu-list>
                     <menu-list [items]="clientFeatures" *ngIf="(url$ | async) !== '/' && (isAuthenticated$ | async)&& (iAmTrainer$ | async) === false "></menu-list>
-                    <menu-list [items]="landingPages" *ngIf="(url$ | async) === '/'"></menu-list> -->
+                    <menu-list [items]="landingPages" *ngIf="(url$ | async) === '/'"></menu-list> 
                     <ion-item *ngIf="(isAuthenticated$ | async) && (url$ | async) === '/'" routerLink="/dashboard">
                         <ion-icon size="large" slot="start" icon="speedometer-outline"></ion-icon>
                         <ion-label>Dashboard</ion-label>
@@ -47,5 +44,5 @@
         </ion-menu>
         <ion-router-outlet id="main-content">
 		</ion-router-outlet>
-    </ion-split-pane>
+    </ion-split-pane> -->
 </ion-app>

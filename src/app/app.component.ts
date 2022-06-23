@@ -1,4 +1,4 @@
-import { BehaviorSubject, combineLatest, interval, Observable, of, timer } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval, Observable, of, Subscription, timer } from 'rxjs';
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { SwUpdate  } from '@angular/service-worker';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -165,6 +165,8 @@ export class AppComponent implements OnInit, AfterContentInit {
 
 	public routeLoading$: Observable < boolean > = of (false);
 
+	public everyMinute: Subscription;
+
     constructor(
         private profileService: ProfileFacade,
         private routerService: RouterStoreDispatcher,
@@ -196,7 +198,7 @@ export class AppComponent implements OnInit, AfterContentInit {
 
 		this.checkForUpdate();
 
-		interval(60000).subscribe(() => {
+		this.everyMinute = interval(60000).subscribe(() => {
 			this.checkForUpdate();
 		});
 		
@@ -250,6 +252,11 @@ export class AppComponent implements OnInit, AfterContentInit {
 			}
 			console.log("checkForUpdate returned", updateAvailable);
 		}).catch(reason => {
+			console.log(reason);
+			const notSupported = reason.toString().includes("disabled or not supported");
+			if (notSupported && this.everyMinute) {
+				this.everyMinute.unsubscribe()
+			}
 			if(loud) {
 				this.toastService.failed("checkForUpdate failed:", reason.message, {"id": "service-worker-update" })
 			}
